@@ -3,12 +3,13 @@ import { TransactionsManager } from '../../../Contexts/TransactionsManager/Trans
 import AddBudgetItem from '../AddBudgetItem/AddBudgetItem'
 import TransactionList from '../TransactionList/TransactionList'
 
-export default function TransactionViewer() {
+export default function ExpenseViewer() {
     return (
         <div>
             <TransactionsManager>
+                <AddBudgetItem income={false}/>
                 <div>
-                    <TransactionList/>
+                    <TransactionList filter="expense"/>
                 </div>
             </TransactionsManager>           
         </div>

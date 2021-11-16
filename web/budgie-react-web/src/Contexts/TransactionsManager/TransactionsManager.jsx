@@ -8,6 +8,8 @@ export function TransactionsManager(props) {
     const categories = useContext(CategoryContext);
 
     let [transactions, setTransactions] = useState([]);
+    let [incomeTransactions, setIncomeTransactions] = useState([]);
+    let [expenseTransactions, setExpenseTransactions] = useState([]);
 
     useEffect(() => {
         updateTransactions()
@@ -20,11 +22,19 @@ export function TransactionsManager(props) {
         const categoryObject = categories.getCategoryById(category)
 
         // convert payload to json
-        const body = JSON.stringify({dollars, category:categoryObject, note, transactionDate, isIncome});
+        console.log(isIncome)
+
+        if(isIncome === true) {
+            isIncome = "true"
+        } else {
+            isIncome = "false"
+        }
+        const body = JSON.stringify({dollars, category:categoryObject, note, transactionDate, isIncome:isIncome});
+
+        console.log('body :>> ', body);
 
         try {
 
-            console.log('body :>> ', body);
             const response = await fetch("http://localhost:8080/transactions/add", {
                 method: 'POST', 
                 headers: {
@@ -49,8 +59,7 @@ export function TransactionsManager(props) {
                     'Content-Type': 'application/json',
                 }
             })
-    
-    
+
             await updateTransactions();
         } catch(error) {
             console.error('error', error)

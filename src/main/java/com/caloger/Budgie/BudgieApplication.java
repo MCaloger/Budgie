@@ -29,7 +29,7 @@ public class BudgieApplication {
 	void init() {
 		LocalDate localDate = LocalDate.now();
 
-		Category foodCategory = new Category("Food", false);
+		Category foodCategory = new Category("Food", true);
 		Category vehicleCategory = new Category("Vehicle", false);
 		categoryService.saveCategory(foodCategory);
 		categoryService.saveCategory(vehicleCategory);

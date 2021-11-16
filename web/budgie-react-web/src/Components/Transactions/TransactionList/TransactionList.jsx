@@ -6,7 +6,17 @@ export default function TransactionList(props) {
 
     const transactions = useContext(TransactionContext);
 
-    console.log(transactions)
+    console.log('transactions', transactions)
+
+    if(props.filter === "expense") {
+        transactions.transactions =  transactions.transactions.filter(transaction => transaction.income === false);
+    }
+
+
+    if(props.filter === "income") {
+        transactions.transactions =  transactions.transactions.filter(transaction => transaction.income === true);
+    }
+
 
     return (
         <div className="transaction-list">

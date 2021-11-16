@@ -8,6 +8,8 @@ import {
 
 import NavigationBar from "../NavigationBar/NavigationBar";
 import TransactionViewer from "../Transactions/TransactionViewer/TransactionViewer";
+import ExpenseViewer from "../Transactions/TransactionViewer/ExpenseViewer";
+import IncomeViewer from "../Transactions/TransactionViewer/IncomeViewer"; 
 
 export default function AppRouter() {
   return (
@@ -19,10 +21,10 @@ export default function AppRouter() {
             <TransactionViewer />
           </Route>
           <Route path="/income">
-            <TransactionViewer />
+            <IncomeViewer />
           </Route>
           <Route path="/expenses">
-            <TransactionViewer />
+            <ExpenseViewer />
           </Route>
           <Route path="/categories">
             <div>Categories</div>

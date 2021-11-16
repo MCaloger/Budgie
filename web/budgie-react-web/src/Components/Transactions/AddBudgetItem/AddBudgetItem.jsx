@@ -27,8 +27,8 @@ export default function AddBudgetItem(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("date:" , date)
-
-        transactions.addTransaction(dollars, selectedCategory, note, false, date);
+        console.log("income", props.income)
+        transactions.addTransaction(dollars, selectedCategory, note, props.income, date);
         resetForm();
     }
 
