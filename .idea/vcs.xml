@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Budgie" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/web/budgie-react-web" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/web/budgie-react-web-ts" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/web/budgie-web" vcs="Git" />
+  </component>
+</project>
