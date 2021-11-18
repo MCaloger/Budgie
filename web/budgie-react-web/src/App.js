@@ -9,9 +9,9 @@ function App() {
   return (
     <div className="App">
 
-      <CategoryManager>
+      
         <AppRouter />
-      </CategoryManager>
+      
         
     </div>
   );

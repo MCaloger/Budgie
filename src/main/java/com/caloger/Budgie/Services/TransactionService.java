@@ -16,6 +16,21 @@ public class TransactionService {
     private TransactionRepository transactionRepository;
 
     public void saveTransaction(Transaction transaction) {
+
+        if(transaction.isIncome()) {
+            saveIncome(transaction);
+        } else {
+            saveExpense(transaction);
+        }
+    }
+
+    public void saveExpense(Transaction transaction) {
+        transaction.setDollars(transaction.getDollars() * -1);
+
+        transactionRepository.save(transaction);
+    }
+
+    public void saveIncome(Transaction transaction) {
         transactionRepository.save(transaction);
     }
 

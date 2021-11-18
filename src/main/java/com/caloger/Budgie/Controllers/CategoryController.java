@@ -18,14 +18,14 @@ public class CategoryController {
 
     @PostMapping(value = "/add", consumes = "application/json")
     @CrossOrigin(origins = "http://localhost:3000")
-    public void addTransaction(@RequestBody Category category) {
+    public void addCategory(@RequestBody Category category) {
 
         categoryService.saveCategory(category);
     }
 
-    @GetMapping("/:id")
+    @GetMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public Category getCategory(@Param("id") long id) {
+    public Category getCategory(@PathVariable("id") long id) {
         return categoryService.getCategoryById(id);
     }
 

@@ -4,12 +4,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long id;
 
     @Column(unique=true)
@@ -22,15 +20,15 @@ public class Category {
     public Category() {
     }
 
-    public Category(String categoryName, boolean isIncome) {
+    public Category(String categoryName) {
         this.categoryName = categoryName;
-        this.isIncome = isIncome;
+        this.isIncome = true;
     }
 
-    public Category(Long id, String categoryName, boolean isIncome) {
+    public Category(Long id, String categoryName) {
         this.id = id;
         this.categoryName = categoryName;
-        this.isIncome = isIncome;
+        this.isIncome = true;
     }
 
     public Long getId() {

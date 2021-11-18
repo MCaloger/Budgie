@@ -28,6 +28,18 @@ public class TransactionController {
         transactionService.saveTransaction(transaction);
     }
 
+    @PostMapping(value = "/addExpense", consumes = "application/json")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public void addExpense(@RequestBody Transaction transaction) {
+        transactionService.saveExpense(transaction);
+    }
+
+    @PostMapping(value = "/addIncome", consumes = "application/json")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public void addIncome(@RequestBody Transaction transaction) {
+        transactionService.saveIncome(transaction);
+    }
+
     @DeleteMapping(value="/delete")
     @CrossOrigin(origins = "http://localhost:3000")
     public void deleteTransaction(@Param("id") int id) {

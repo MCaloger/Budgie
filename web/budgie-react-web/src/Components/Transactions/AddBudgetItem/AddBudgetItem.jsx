@@ -1,6 +1,8 @@
+import { render } from '@testing-library/react';
 import React, { useState, useContext, useEffect, useRef } from 'react'
-import { CategoryContext } from '../../../Contexts/CategoryManager/CategoryManager';
+import { CategoryContext, CategoryManager } from '../../../Contexts/CategoryManager/CategoryManager';
 import { TransactionContext } from '../../../Contexts/TransactionsManager/TransactionsManager';
+import CategorySelector from '../../Categories/CategorySelector/CategorySelector';
 
 export default function AddBudgetItem(props) {
 
@@ -20,14 +22,8 @@ export default function AddBudgetItem(props) {
 
     const [date, setDate] = useState(today);
 
-    useEffect(() => {
-        setSelectedCategory(1)
-    }, [])
-
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("date:" , date)
-        console.log("income", props.income)
         transactions.addTransaction(dollars, selectedCategory, note, props.income, date);
         resetForm();
     }
@@ -37,8 +33,8 @@ export default function AddBudgetItem(props) {
     }
 
     const handleCategory = (e) => {
-        console.log('e.target.value :>> ', e.target.value);
         setSelectedCategory(e.target.value)
+
     }
 
     const handleNote = (e) => {
@@ -56,6 +52,7 @@ export default function AddBudgetItem(props) {
 
     return (
         <div>
+
             <form className="add-transaction-form" onSubmit={handleSubmit} ref={formRef}>
                 <div>
                     <label htmlFor="transactionDollarAmount">Enter dollar amount of transaction:</label>
@@ -64,14 +61,18 @@ export default function AddBudgetItem(props) {
                     </div>
                     
                 </div>
-                <div>
+                
+                <CategoryManager>
                     <label htmlFor="transactionCategory">Set a category for the transaction:</label>
                     <div>
                         <select name="transactionCategory" value={selectedCategory} onChange={handleCategory}>
-                            {categories.categories.map(category => <option key={category.id} value={category.id}>{category.categoryName}</option>)}
+                        <CategoryContext.Consumer>
+                            {categories => categories.categories.map(category => (<option key={category.id} value={category.id}>{category.categoryName}</option>))}
+                        </CategoryContext.Consumer> 
                         </select>
                     </div>
-                </div>
+                </CategoryManager>
+
                 <div>
                     <label htmlFor="transactionNote">Set a note for the transaction:</label>
                     <div>

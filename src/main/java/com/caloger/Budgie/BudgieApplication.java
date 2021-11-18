@@ -29,8 +29,8 @@ public class BudgieApplication {
 	void init() {
 		LocalDate localDate = LocalDate.now();
 
-		Category foodCategory = new Category("Food", true);
-		Category vehicleCategory = new Category("Vehicle", false);
+		Category foodCategory = new Category("Food");
+		Category vehicleCategory = new Category("Vehicle");
 		categoryService.saveCategory(foodCategory);
 		categoryService.saveCategory(vehicleCategory);
 		transactionService.saveTransaction(new Transaction(10, true, foodCategory, "example", Date.valueOf(localDate)));

@@ -27,8 +27,6 @@ public class Transaction {
 
     private Date transactionDate;
 
-
-
     public Transaction() {
     }
 

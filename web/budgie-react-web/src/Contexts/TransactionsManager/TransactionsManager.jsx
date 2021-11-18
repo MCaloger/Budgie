@@ -13,29 +13,27 @@ export function TransactionsManager(props) {
 
     useEffect(() => {
         updateTransactions()
-        console.log(transactions)
+        console.log("updated transactions", transactions)
     }, []); 
 
     async function addTransaction(dollars, category, note, isIncome, transactionDate) {
 
         // fetch Catgeory from categoryID
-        const categoryObject = categories.getCategoryById(category)
+        const categoryObject = await categories.getCategoryById(category)
 
         // convert payload to json
-        console.log(isIncome)
+        let url = "";
 
         if(isIncome === true) {
-            isIncome = "true"
+            url = "http://localhost:8080/transactions/addIncome"
         } else {
-            isIncome = "false"
+            url = "http://localhost:8080/transactions/addExpense"
         }
         const body = JSON.stringify({dollars, category:categoryObject, note, transactionDate, isIncome:isIncome});
 
-        console.log('body :>> ', body);
-
         try {
 
-            const response = await fetch("http://localhost:8080/transactions/add", {
+            const response = await fetch(url, {
                 method: 'POST', 
                 headers: {
                     'Accept': 'application/json',
