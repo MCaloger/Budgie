@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -18,54 +17,51 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
-    @Autowired
-    CategoryService categoryService;
-
     @PostMapping(value = "/add", consumes = "application/json")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public void addTransaction(@RequestBody Transaction transaction) {
         System.out.println(transaction.toString());
         transactionService.saveTransaction(transaction);
     }
 
     @PostMapping(value = "/addExpense", consumes = "application/json")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public void addExpense(@RequestBody Transaction transaction) {
         transactionService.saveExpense(transaction);
     }
 
     @PostMapping(value = "/addIncome", consumes = "application/json")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public void addIncome(@RequestBody Transaction transaction) {
         transactionService.saveIncome(transaction);
     }
 
     @DeleteMapping(value="/delete")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public void deleteTransaction(@Param("id") int id) {
         transactionService.deleteTransactionById(id);
     }
 
     @GetMapping("/:id")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public Optional<Transaction> getTransaction(@Param("id") long id) {
         return transactionService.getTransactionById(id);
     }
 
     @GetMapping("/all")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();
     }
 
     @GetMapping("/income/all")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public List<Transaction> getAllIncomeTransactions() {
         return transactionService.getAllIncomeTransactions();
     }
 
     @GetMapping("/expenses/all")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public List<Transaction> getAllExpenseTransactions() {
         return transactionService.getAllExpenseTransactions();
     }

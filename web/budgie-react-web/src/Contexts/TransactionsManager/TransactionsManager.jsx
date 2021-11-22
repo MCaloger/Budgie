@@ -8,15 +8,12 @@ export function TransactionsManager(props) {
     const categories = useContext(CategoryContext);
 
     let [transactions, setTransactions] = useState([]);
-    let [incomeTransactions, setIncomeTransactions] = useState([]);
-    let [expenseTransactions, setExpenseTransactions] = useState([]);
 
     useEffect(() => {
         updateTransactions()
-        console.log("updated transactions", transactions)
     }, []); 
 
-    async function addTransaction(dollars, category, note, isIncome, transactionDate) {
+    async function addTransaction(amount, category, note, transactionDate) {
 
         // fetch Catgeory from categoryID
         const categoryObject = await categories.getCategoryById(category)
@@ -24,12 +21,15 @@ export function TransactionsManager(props) {
         // convert payload to json
         let url = "";
 
-        if(isIncome === true) {
+        console.log(amount)
+
+        // route url based on income or expense
+        if(amount >= 0) {
             url = "http://localhost:8080/transactions/addIncome"
         } else {
             url = "http://localhost:8080/transactions/addExpense"
         }
-        const body = JSON.stringify({dollars, category:categoryObject, note, transactionDate, isIncome:isIncome});
+        const body = JSON.stringify({amount, category:categoryObject, note, transactionDate});
 
         try {
 

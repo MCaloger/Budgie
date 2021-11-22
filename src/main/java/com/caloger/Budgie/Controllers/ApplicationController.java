@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 public class ApplicationController {
 
-    @GetMapping("/")
+    @GetMapping("/app/**")
     public ModelAndView getApplicationUI() {
         ModelAndView applicationView = new ModelAndView("index.html");
         return applicationView;

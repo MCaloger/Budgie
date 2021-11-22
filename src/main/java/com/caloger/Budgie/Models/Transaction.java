@@ -5,19 +5,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
 
 @Entity
+@Table(name = "Transaction")
 public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private int dollars;
-
-    private boolean isIncome;
+    private BigDecimal amount;
 
     @ManyToOne(targetEntity = Category.class)
     @JoinColumn(name = "categoryId")
@@ -27,39 +27,26 @@ public class Transaction {
 
     private Date transactionDate;
 
-    public Transaction() {
-    }
-
     @Autowired
     @Transient
     private CategoryService categoryService;
 
-    public Transaction(int dollars, boolean isIncome, Category category, String note, Date transactionDate ) {
-        this.dollars = dollars;
-        this.isIncome = isIncome;
+    public Transaction() {
+    }
+
+    public Transaction(BigDecimal amount, Category category, String note, Date transactionDate) {
+        this.amount = amount;
         this.category = category;
         this.note = note;
         this.transactionDate = transactionDate;
     }
 
-    public Transaction(long id, int dollars, boolean isIncome, Category category, String note, Date transactionDate) {
+    public Transaction(long id, BigDecimal amount, Category category, String note, Date transactionDate) {
         this.id = id;
-        this.dollars = dollars;
-        this.isIncome = isIncome;
+        this.amount = amount;
         this.category = category;
         this.note = note;
         this.transactionDate = transactionDate;
-    }
-
-    public Transaction(long id, int dollars, boolean isIncome, Category category, String note, String transactionDate) {
-        LocalDate localDate = LocalDate.parse(transactionDate);
-
-        this.id = id;
-        this.dollars = dollars;
-        this.isIncome = isIncome;
-        this.category = category;
-        this.note = note;
-        this.transactionDate = Date.valueOf(localDate);
     }
 
     public long getId() {
@@ -70,20 +57,12 @@ public class Transaction {
         this.id = id;
     }
 
-    public int getDollars() {
-        return dollars;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setDollars(int dollars) {
-        this.dollars = dollars;
-    }
-
-    public boolean isIncome() {
-        return isIncome;
-    }
-
-    public void setIncome(boolean income) {
-        isIncome = income;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     public Category getCategory() {
@@ -114,12 +93,10 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", dollars=" + dollars +
-                ", isIncome=" + isIncome +
+                ", amount=" + amount +
                 ", category=" + category +
                 ", note='" + note + '\'' +
                 ", transactionDate=" + transactionDate +
-                ", categoryService=" + categoryService +
                 '}';
     }
 }

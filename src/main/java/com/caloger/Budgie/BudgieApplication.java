@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -31,13 +32,12 @@ public class BudgieApplication {
 
 		Category foodCategory = new Category("Food");
 		Category vehicleCategory = new Category("Vehicle");
+
 		categoryService.saveCategory(foodCategory);
 		categoryService.saveCategory(vehicleCategory);
-		transactionService.saveTransaction(new Transaction(10, true, foodCategory, "example", Date.valueOf(localDate)));
-		transactionService.saveTransaction(new Transaction(20, true, vehicleCategory, "example2", Date.valueOf(localDate)));
-		transactionService.saveTransaction(new Transaction(35, false, vehicleCategory, "example3", Date.valueOf(localDate)));
-		transactionService.getAllIncomeTransactions();
-
+		transactionService.saveTransaction(new Transaction(10, BigDecimal.valueOf(10.99), foodCategory, "example", Date.valueOf(localDate)));
+		transactionService.saveTransaction(new Transaction(20, BigDecimal.valueOf(13.94), vehicleCategory, "example2", Date.valueOf(localDate)));
+		transactionService.saveTransaction(new Transaction(35, BigDecimal.valueOf(17.29), vehicleCategory, "example3", Date.valueOf(localDate)));
 	};
 
 }

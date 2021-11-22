@@ -4,9 +4,7 @@ import com.caloger.Budgie.Models.Transaction;
 import com.caloger.Budgie.Repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,16 +14,15 @@ public class TransactionService {
     private TransactionRepository transactionRepository;
 
     public void saveTransaction(Transaction transaction) {
-
-        if(transaction.isIncome()) {
-            saveIncome(transaction);
-        } else {
-            saveExpense(transaction);
-        }
+        transactionRepository.save(transaction);
     }
 
     public void saveExpense(Transaction transaction) {
-        transaction.setDollars(transaction.getDollars() * -1);
+
+        // confirm that amount is negative, if not, negate
+        if(transaction.getAmount().compareTo(BigDecimal.ZERO) > 0) {
+            transaction.setAmount(transaction.getAmount().negate());
+        }
 
         transactionRepository.save(transaction);
     }
@@ -39,7 +36,7 @@ public class TransactionService {
     }
 
     public List<Transaction> getAllIncomeTransactions() {
-        return transactionRepository.findByIsIncome(true);
+        return transactionRepository.findAllIncomeTransactions();
     }
 
     public Optional<Transaction> getTransactionById(Long id) {
@@ -51,6 +48,6 @@ public class TransactionService {
     }
 
     public List<Transaction> getAllExpenseTransactions() {
-        return transactionRepository.findByIsIncome(false);
+        return transactionRepository.findAllExpenseTransactions();
     }
 }

@@ -8,18 +8,18 @@ export default function TransactionList(props) {
     const transactions = useContext(TransactionContext)
 
     if(props.filter === "expense") {
-        transactions.transactions =  transactions.transactions.filter(transaction => transaction.income === false);
+        transactions.transactions =  transactions.transactions.filter(transaction => transaction.amount < 0);
     }
 
 
     if(props.filter === "income") {
-        transactions.transactions =  transactions.transactions.filter(transaction => transaction.income === true);
+        transactions.transactions =  transactions.transactions.filter(transaction => transaction.amount >= 0);
     }
 
     const getTotal = () => {
         let value = 0;
         transactions.transactions.forEach(transaction => {
-            value += transaction.dollars
+            value += transaction.amount
         })
 
         return value;
@@ -36,7 +36,7 @@ export default function TransactionList(props) {
                 <div></div>
             </div>
             
-            { transactions.transactions.map(transaction => <TransactionItem key={transaction.id} data-id={transaction.id} dollars={transaction.dollars} category={ transaction.category ? transaction.category.categoryName : ''} note={transaction.note} transactionDate={transaction.transactionDate}></TransactionItem>) }
+            { transactions.transactions.map(transaction => <TransactionItem key={transaction.id} data-id={transaction.id} dollars={transaction.amount} category={ transaction.category ? transaction.category.categoryName : ''} note={transaction.note} transactionDate={transaction.transactionDate}></TransactionItem>) }
             <div className="sum-line"><MoneyDisplay amount={ getTotal() }></MoneyDisplay></div>
         </div>
     )

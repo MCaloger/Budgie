@@ -14,7 +14,11 @@ export default function AddBudgetItem(props) {
 
     const formRef = useRef(null)
 
-    const [dollars, setDollars] = useState('0');
+    const [dollars, setDollars] = useState(0);
+
+    const [cents, setCents] = useState(0);
+
+    const [amount, setAmount] = useState(0);
 
     const [selectedCategory, setSelectedCategory] = useState(1);
 
@@ -22,19 +26,33 @@ export default function AddBudgetItem(props) {
 
     const [date, setDate] = useState(today);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        transactions.addTransaction(dollars, selectedCategory, note, props.income, date);
+
+        console.log("amount", amount)
+
+        if(props.income) {
+            transactions.addTransaction(amount, selectedCategory, note, date);
+        } else {
+            // flip amount to negative
+            transactions.addTransaction(amount*-1, selectedCategory, note, date);
+        }
+
         resetForm();
     }
 
     const handleDollarChange = (e) => {
-        setDollars(e.target.value)
+        setDollars(parseInt(e.target.value))
+        setAmount(parseFloat(dollars + (cents/100)))
+    }
+
+    const handleCentsChange = (e) => {
+        setCents(parseInt(e.target.value))
+        setAmount(parseFloat(dollars + (cents/100)))
     }
 
     const handleCategory = (e) => {
         setSelectedCategory(e.target.value)
-
     }
 
     const handleNote = (e) => {
@@ -47,6 +65,7 @@ export default function AddBudgetItem(props) {
 
     const resetForm = () => {
         setDollars(0);
+        setCents(0);
         setNote('');
     }
 
@@ -57,7 +76,7 @@ export default function AddBudgetItem(props) {
                 <div>
                     <label htmlFor="transactionDollarAmount">Enter dollar amount of transaction:</label>
                     <div>
-                        <span>$<input type="number" name="transactionDollarAmount" id="transactionDollarAmount" min="0" max="9999" value={dollars} onChange={handleDollarChange}/></span>
+                        <span>{ props.income ? "" : "-" }$<input type="number" name="transactionDollarAmount" id="transactionDollarAmount" min="0" max="99999" value={dollars} onChange={handleDollarChange}/>.<input type="number" min="0" max="99" size="2" calue={cents} onChange={handleCentsChange}/></span>
                     </div>
                     
                 </div>

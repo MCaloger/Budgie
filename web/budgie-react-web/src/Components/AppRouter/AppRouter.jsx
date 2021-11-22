@@ -12,6 +12,7 @@ import ExpenseViewer from "../Transactions/TransactionViewer/ExpenseViewer";
 import IncomeViewer from "../Transactions/TransactionViewer/IncomeViewer"; 
 import CategoryViewer from "../Categories/CategoryViewer/CategoryViewer";
 import { CategoryManager } from "../../Contexts/CategoryManager/CategoryManager";
+import Home from "../../Pages/Home";
 
 export default function AppRouter() {
   return (
@@ -33,8 +34,11 @@ export default function AppRouter() {
               <CategoryViewer />
             </Route>
           </CategoryManager>
-          <Route path="/">
-            <div>Home</div>
+          <Route exact path="/">
+            <CategoryViewer />
+          </Route>
+          <Route path="*">
+            <div>404</div>
           </Route>
         </Switch>
       </div>
