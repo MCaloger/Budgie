@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,20 +40,27 @@
 .App {
   display: flex;
   flex-direction: row;
+  
 }
 
 .navbar {
   height: 100vh;
-  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  z-index: 2;
 }
 
 .content {
   flex: 1;
+  font-size: 20px;
+  background-color: #FCFCFC;
 }
 
 .nav-ul {
   display: flex;
   flex-direction: column;
+  padding-inline-start: 0;
 }
 
 .nav-li {
@@ -68,40 +79,121 @@
 
 .add-transaction-form {
   display:flex;
+  flex-direction: column;
   padding: 10px;
 }
 
 .add-transaction-form > * {
+  margin-top: 10px;
+  margin-bottom: 10px;
   flex: 1;
 }
 
 .transaction-list {
   padding: 10px;
+  overflow-y: scroll;
+  border-radius: 10px;
+  flex: 4;
+  max-height: 100vh;
 }
 
 .transaction-list > :not(:last-child) {
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #ddd;
+}
+
+.transaction-list > :first-child {
+  border-bottom: none;
 }
 
 .transaction-list > :nth-child(even) {
-  background: darkgray;
+  /* background: rgb(245, 245, 245); */
 }
 
 .transaction-list > * {
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 10px;
 }
 
 .transaction-list-header {
-
   display: flex;
 }
 
 .transaction-list-header > * {
   flex: 1;
   font-weight: bold;
+  
 }
 
 .sum-line {
-  border-top: 3px solid black;
+  padding: 10px;
+  font-size: 36px;
   font-weight: bold;
+
+  margin-bottom: 10px;
+}
+
+.negative-number {
+  color: #D50000;
+}
+
+.positive-number {
+  color: #00C853; 
+}
+
+.transaction-viewer-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+  padding: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.transaction-add-container {
+  padding: 10px;
+}
+
+.add-transaction-form-container {
+  
+}
+
+.content-pane {
+  display:flex;
+  flex-direction: row;
+  overflow-y: auto;
+}
+
+.form-button-container {
+  display: flex;
+}
+
+.form-button {
+  flex: 1;
+  margin: 5px;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.submit-button {
+  background: #4CAF50;
+}
+
+.submit-button:hover {
+  background: #388E3C;
+}
+
+.reset-button {
+  background: #FFB300;
+}
+
+.reset-button:hover {
+  background: #FFA000;
+}
+
+.category-list-item {
+  display: flex;
+  justify-content: space-between;
 }

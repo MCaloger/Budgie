@@ -30,14 +30,12 @@ public class BudgieApplication {
 	void init() {
 		LocalDate localDate = LocalDate.now();
 
-		Category foodCategory = new Category("Food");
-		Category vehicleCategory = new Category("Vehicle");
+		Category foodCategory = new Category("None");
 
 		categoryService.saveCategory(foodCategory);
-		categoryService.saveCategory(vehicleCategory);
-		transactionService.saveTransaction(new Transaction(10, BigDecimal.valueOf(10.99), foodCategory, "example", Date.valueOf(localDate)));
-		transactionService.saveTransaction(new Transaction(20, BigDecimal.valueOf(13.94), vehicleCategory, "example2", Date.valueOf(localDate)));
-		transactionService.saveTransaction(new Transaction(35, BigDecimal.valueOf(17.29), vehicleCategory, "example3", Date.valueOf(localDate)));
+//		transactionService.saveTransaction(new Transaction(10, BigDecimal.valueOf(10.99), foodCategory, "example", Date.valueOf(localDate)));
+//		transactionService.saveTransaction(new Transaction(20, BigDecimal.valueOf(13.94), vehicleCategory, "example2", Date.valueOf(localDate)));
+//		transactionService.saveTransaction(new Transaction(35, BigDecimal.valueOf(17.29), vehicleCategory, "example3", Date.valueOf(localDate)));
 	};
 
 }

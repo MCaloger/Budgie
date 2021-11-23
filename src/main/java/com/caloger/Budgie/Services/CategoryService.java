@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -26,5 +27,14 @@ public class CategoryService {
 
     public Category getCategoryByCategoryName(String categoryName) {
         return categoryRepository.findByCategoryName(categoryName);
+    }
+
+    public void deleteCategory(long id) {
+        Optional<Category> category = categoryRepository.findById(id);
+
+        if(category.get().getCategoryName() != "None") {
+            categoryRepository.deleteById(id);
+        }
+
     }
 }

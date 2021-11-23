@@ -14,7 +14,7 @@ public class Category {
     private String categoryName;
     private boolean isIncome;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST, orphanRemoval = false)
     private List<Transaction> transactions;
 
     public Category() {

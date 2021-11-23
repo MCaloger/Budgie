@@ -16,10 +16,13 @@ import Home from "../../Pages/Home";
 
 export default function AppRouter() {
   return (
-    <Router>
+    <Router baseName="/">
       <NavigationBar></NavigationBar>
       <div className="content">
         <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
           <Route path="/transactions">
             <TransactionViewer />
           </Route>
@@ -33,10 +36,7 @@ export default function AppRouter() {
             <Route path="/categories">
               <CategoryViewer />
             </Route>
-          </CategoryManager>
-          <Route exact path="/">
-            <CategoryViewer />
-          </Route>
+          </CategoryManager>   
           <Route path="*">
             <div>404</div>
           </Route>

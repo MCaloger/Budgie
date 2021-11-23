@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("categories")
@@ -19,6 +18,12 @@ public class CategoryController {
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public void addCategory(@RequestBody Category category) {
         categoryService.saveCategory(category);
+    }
+
+    @DeleteMapping(value = "/delete", consumes = "application/json")
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
+    public void deleteCategory(@Param("id") long id) {
+            categoryService.deleteCategory(id);
     }
 
     @GetMapping("/{id}")

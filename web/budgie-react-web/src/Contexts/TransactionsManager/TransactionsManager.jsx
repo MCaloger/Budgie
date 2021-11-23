@@ -51,7 +51,7 @@ export function TransactionsManager(props) {
     async function deleteTransaction(id) {
         try {
             const response = await fetch(`http://localhost:8080/transactions/delete/?id=${id}`, {
-                method: 'GET', 
+                method: 'DELETE', 
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -93,10 +93,9 @@ export function TransactionsManager(props) {
     }
 
     return (
-        <div>
-            <TransactionContext.Provider value={ { transactions, setTransactions, addTransaction, updateTransactions } }>
-                { props.children }
-            </TransactionContext.Provider>
-        </div>
+
+        <TransactionContext.Provider value={ { transactions, setTransactions, addTransaction, updateTransactions, deleteTransaction } }>
+            { props.children }
+        </TransactionContext.Provider>
     )
 }

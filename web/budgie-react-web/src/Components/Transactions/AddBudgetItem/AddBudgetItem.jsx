@@ -18,8 +18,6 @@ export default function AddBudgetItem(props) {
 
     const [cents, setCents] = useState(0);
 
-    const [amount, setAmount] = useState(0);
-
     const [selectedCategory, setSelectedCategory] = useState(1);
 
     const [note, setNote] = useState('');
@@ -29,7 +27,8 @@ export default function AddBudgetItem(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        console.log("amount", amount)
+        const centFloat = cents/100;
+        const amount = parseFloat(dollars+centFloat)
 
         if(props.income) {
             transactions.addTransaction(amount, selectedCategory, note, date);
@@ -43,12 +42,10 @@ export default function AddBudgetItem(props) {
 
     const handleDollarChange = (e) => {
         setDollars(parseInt(e.target.value))
-        setAmount(parseFloat(dollars + (cents/100)))
     }
 
     const handleCentsChange = (e) => {
         setCents(parseInt(e.target.value))
-        setAmount(parseFloat(dollars + (cents/100)))
     }
 
     const handleCategory = (e) => {
@@ -70,20 +67,20 @@ export default function AddBudgetItem(props) {
     }
 
     return (
-        <div>
+        <div className="add-transaction-form-container">
 
-            <form className="add-transaction-form" onSubmit={handleSubmit} ref={formRef}>
+            <form className="add-transaction-form" onSubmit={handleSubmit} onReset={resetForm} ref={formRef}>
                 <div>
                     <label htmlFor="transactionDollarAmount">Enter dollar amount of transaction:</label>
                     <div>
-                        <span>{ props.income ? "" : "-" }$<input type="number" name="transactionDollarAmount" id="transactionDollarAmount" min="0" max="99999" value={dollars} onChange={handleDollarChange}/>.<input type="number" min="0" max="99" size="2" calue={cents} onChange={handleCentsChange}/></span>
+                        <span>{ props.income ? "" : "-" }$<input type="number" name="transactionDollarAmount" id="transactionDollarAmount" min="0" max="99999" value={dollars} onChange={handleDollarChange}/>.<input type="number" min="0" max="99" size="2" value={cents} onChange={handleCentsChange}/></span>
                     </div>
                     
                 </div>
                 
                 <CategoryManager>
-                    <label htmlFor="transactionCategory">Set a category for the transaction:</label>
                     <div>
+                        <label htmlFor="transactionCategory">Set a category for the transaction:</label>
                         <select name="transactionCategory" value={selectedCategory} onChange={handleCategory}>
                         <CategoryContext.Consumer>
                             {categories => categories.categories.map(category => (<option key={category.id} value={category.id}>{category.categoryName}</option>))}
@@ -108,8 +105,11 @@ export default function AddBudgetItem(props) {
                     
                 </div>
                 
-
-                <button>Submit</button>
+                <div className="form-button-container">
+                    <button type="reset" className="form-button reset-button">Clear</button>
+                    <button type="submit" className="form-button submit-button">Submit</button>
+                </div>
+                
             </form>
         </div>
     )

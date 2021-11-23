@@ -20,7 +20,7 @@ public class Transaction {
     private BigDecimal amount;
 
     @ManyToOne(targetEntity = Category.class)
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "categoryId", nullable = true)
     private Category category;
 
     private String note;

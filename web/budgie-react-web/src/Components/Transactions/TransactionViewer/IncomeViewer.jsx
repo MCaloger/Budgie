@@ -5,12 +5,17 @@ import TransactionList from '../TransactionList/TransactionList'
 
 export default function IncomeViewer() {
     return (
-        <div>
-            <TransactionsManager>
-                <AddBudgetItem income={true} />
-                <div>
+        <div className="content-pane">
+            <TransactionsManager> 
+                <div className="transaction-viewer-container">
+                    <h1>Income</h1>
                     <TransactionList filter="income"/>
-                </div>
+                    
+                </div>  
+                <div className="transaction-add-container">
+                    <h1>Add Income</h1>
+                    <AddBudgetItem income={true} />
+                </div>   
             </TransactionsManager>           
         </div>
     )

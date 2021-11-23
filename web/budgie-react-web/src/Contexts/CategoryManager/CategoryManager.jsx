@@ -67,8 +67,24 @@ export function CategoryManager(props) {
         }
     }
 
+    async function deleteCategory(id) { 
+        try {
+            const response = await fetch(`http://127.0.0.1:8080/categories/delete?id=${id}`, {
+                method: 'DELETE', 
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            })
+
+            updateCategories();
+        } catch (error) {
+            console.error('error', error)
+        }
+    }
+
     return (
-        <CategoryContext.Provider value={{ categories, setCategories, addCategory, updateCategories, getCategoryById }}>
+        <CategoryContext.Provider value={{ categories, setCategories, addCategory, updateCategories, getCategoryById, deleteCategory }}>
             { props.children }
         </CategoryContext.Provider>
     )

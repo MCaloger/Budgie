@@ -1,17 +1,25 @@
 import React from 'react'
 import { CategoryManager } from '../../../Contexts/CategoryManager/CategoryManager'
-import CategoryList from '../../Transactions/TransactionList/CategoryList'
+import CategoryList from './CategoryList'
 import AddCategoryItem from '../AddCategoryItem/AddCategoryItem'
 
 
 export default function CategoryViewer() {
     return (
-        <div>
+        <div className="content-pane">
+            
             <CategoryManager>
-                <AddCategoryItem />
-                <div>
+                
+                <div className="transaction-viewer-container">
+                    <h1>Categories</h1>
                     <CategoryList />
+                    
                 </div>
+                <div className="transaction-add-container">
+                    <h1>Add Category</h1>
+                    <AddCategoryItem />
+                </div>
+
             </CategoryManager>    
         </div>
     )
