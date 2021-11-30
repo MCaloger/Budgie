@@ -197,3 +197,21 @@
   display: flex;
   justify-content: space-between;
 }
+
+.chart-display {
+  height: 300px;
+  margin: auto;
+  display: flex;
+}
+
+.chart-js-container {
+  height: 100%;
+  width: auto;
+  margin: auto;
+}
+
+.chart-js-container > *{
+  height: 100%;
+  width: auto;
+
+}

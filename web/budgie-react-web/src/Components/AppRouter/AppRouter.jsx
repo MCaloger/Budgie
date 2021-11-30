@@ -20,13 +20,10 @@ export default function AppRouter() {
       <NavigationBar></NavigationBar>
       <div className="content">
         <Switch>
+          <CategoryManager>
           <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/transactions">
             <TransactionViewer />
           </Route>
-          <CategoryManager>
             <Route path="/income">
               <IncomeViewer />
             </Route>

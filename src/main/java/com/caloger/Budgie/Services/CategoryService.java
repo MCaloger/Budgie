@@ -31,7 +31,6 @@ public class CategoryService {
 
     public void deleteCategory(long id) {
         Optional<Category> category = categoryRepository.findById(id);
-
         if(category.get().getCategoryName() != "None") {
             categoryRepository.deleteById(id);
         }

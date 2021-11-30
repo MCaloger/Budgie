@@ -9,9 +9,12 @@ export default function CategoryViewer() {
         <div className="content-pane">
             
             <CategoryManager>
+
+                
                 
                 <div className="transaction-viewer-container">
                     <h1>Categories</h1>
+
                     <CategoryList />
                     
                 </div>

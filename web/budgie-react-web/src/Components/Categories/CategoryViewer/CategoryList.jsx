@@ -6,6 +6,20 @@ export default function CategoryList(props) {
 
     const categories = useContext(CategoryContext);
 
+    const sortedCategories = categories.categories.sort((a, b) => {
+        let categoryNameA = a.categoryName.toUpperCase();
+        let categoryNameB = b.categoryName.toUpperCase();
+
+        if(categoryNameA > categoryNameB) {
+            return 1;
+        }
+
+        if(categoryNameA < categoryNameB) {
+            return -1;
+        }
+        
+        return 0;
+    })
 
 
     return (
@@ -13,7 +27,7 @@ export default function CategoryList(props) {
             <div className="transaction-list-header">
                 <div>Name</div>
             </div>
-            { categories.categories.map(category => <CategoryItem key={category.id} id={category.id} categoryName={category.categoryName}></CategoryItem>) }
+            { sortedCategories.map(category => <CategoryItem key={category.id} id={category.id} categoryName={category.categoryName}></CategoryItem>) }
         </div>
     )
 }

@@ -9,10 +9,7 @@ export default function NavigationBar() {
             <nav>
                 <ul className="nav-ul">
                     <li className="nav-li">
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li className="nav-li">
-                        <Link to="/transactions">Transactions</Link>
+                        <Link to="/">Transactions</Link>
                     </li>
                     <li className="nav-li">
                         <Link to="/income">Income</Link>

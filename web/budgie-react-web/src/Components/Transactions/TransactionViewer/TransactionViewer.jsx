@@ -5,11 +5,13 @@ import TransactionList from '../TransactionList/TransactionList'
 
 export default function TransactionViewer() {
     return (
-        <div>
+        <div className="content-pane">
             <TransactionsManager>
-                <div>
+                <div className="transaction-viewer-container">
+                    <h1>Transactions</h1>
                     <TransactionList/>
-                </div>
+
+                </div> 
             </TransactionsManager>           
         </div>
     )
