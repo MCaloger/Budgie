@@ -8,7 +8,7 @@ export default function TransactionViewer() {
         <div className="content-pane">
             <TransactionsManager>
                 <div className="transaction-viewer-container">
-                    <h1>Transactions</h1>
+                <div className="header-text neutral-number">Transactions</div>
                     <TransactionList/>
 
                 </div> 

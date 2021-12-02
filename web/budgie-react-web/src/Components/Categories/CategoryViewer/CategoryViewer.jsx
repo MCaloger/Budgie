@@ -10,12 +10,14 @@ export default function CategoryViewer() {
             
             <CategoryManager>
 
-                
+            
                 
                 <div className="transaction-viewer-container">
-                    <h1>Categories</h1>
+                    <div className="header-text category-display">Categories</div>
 
                     <CategoryList />
+
+                    <button className="new-button">Add Category</button>
                     
                 </div>
                 <div className="transaction-add-container">

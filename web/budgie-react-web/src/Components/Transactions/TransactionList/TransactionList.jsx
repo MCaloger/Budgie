@@ -9,6 +9,7 @@ import RechartsCategoryPieChart from '../../Charts/RechartsCategoryPieChart';
 import ChartsJSCategoryPieChart from '../../Charts/ChartsJSCategoryPieChart';
 
 import TransactionSorting, { sortByAmount, sortingController } from '../../../SortingFunctions/TransactionSorting';
+import AddBudgetItem from '../AddBudgetItem/AddBudgetItem';
 
 export default function TransactionList(props) {
 
@@ -19,6 +20,8 @@ export default function TransactionList(props) {
 
     // descending | ascending
     const [ascending, setAscending] = useState(true)
+
+    const [showAddForm, setShowAddForm] = useState(true);
 
     if(props.filter === "expense") {
         transactions.transactions =  transactions.transactions.filter(transaction => transaction.amount < 0);
@@ -96,18 +99,14 @@ export default function TransactionList(props) {
         return "#D437AD"
     }
 
+    const toggleAddForm = () => {
+        setShowAddForm(!showAddForm)
+    }
+
 
     return (
         <div className="transaction-list">
             <div className="sum-line"><MoneyDisplay amount={ getTotal() }></MoneyDisplay></div>
-            
-            <div className="chart-display">
-                <RechartsCategoryBarChart color={color()}/>
-            </div>
-
-            <div className="chart-display">
-                <RechartsCategoryPieChart color={color()}/>
-            </div>
 
             <div className="chart-display">
                 <ChartsJSCategoryPieChart/>
@@ -118,8 +117,10 @@ export default function TransactionList(props) {
                 <div onClick={changeSortToCategory}>Category</div>
                 <div onClick={changeSortToNote}>Note</div>
                 <div onClick={changeSortToDate}>Date</div>
-                <div></div>
+                <div><button onClick={toggleAddForm}>{showAddForm ? "Hide" : "Add New" }</button></div>
             </div>
+
+            {showAddForm ? <AddBudgetItem income={props.filter === "income" ? true : false}/> : ""}
             
             { sortTransactions().map(transaction => <TransactionItem key={transaction.id} id={transaction.id} dollars={transaction.amount} category={ transaction.category ? transaction.category.categoryName : ''} note={transaction.note} transactionDate={transaction.transactionDate}></TransactionItem>) }
             

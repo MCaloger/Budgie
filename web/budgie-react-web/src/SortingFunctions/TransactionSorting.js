@@ -1,7 +1,5 @@
 export const sortingController = ({sortType, transactions, ascending}) => {
 
-    console.log("sorttype", sortType)
-
     switch(sortType) {
         case "amount":
             return sortByAmount({transactions, ascending})
@@ -53,12 +51,20 @@ export const sortByCategory = ({transactions, ascending}) => {
         let categoryNameA = a.category.categoryName.toUpperCase();
         let categoryNameB = b.category.categoryName.toUpperCase();
 
-        if(categoryNameA === "") {
-            return 1;
+        if(categoryNameA === "NONE") {
+            if(ascending) {
+                return 1
+            } else {
+                return -1
+            }
         }
 
-        if(categoryNameB === "") {
-            return -1;
+        if(categoryNameB === "NONE") {
+            if(ascending) {
+                return 1
+            } else {
+                return -1
+            }
         }
 
         if(categoryNameA > categoryNameB) {
@@ -88,15 +94,15 @@ export const sortByNote = ({transactions, ascending}) => {
             if(ascending) {
                 return 1
             } else {
-                return 0
+                return -1
             }
         }
 
         if(itemB === "None") {
             if(ascending) {
-                return 1
+                return -1
             } else {
-                return 0
+                return 1
             }
         }
 
@@ -124,11 +130,19 @@ export const sortByTransactionDate = ({transactions, ascending}) => {
         let itemB = b.transactionDate;
 
         if(itemA === "") {
-            return 1;
+            if(ascending) {
+                return 1;
+            } else {
+                return -1
+            } 
         }
 
         if(itemB === "") {
-            return -1;
+            if(ascending) {
+                return -1;
+            } else {
+                return 1
+            }
         }
 
         if(itemA > itemB) {

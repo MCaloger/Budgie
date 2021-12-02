@@ -8,14 +8,14 @@ export default function IncomeViewer() {
         <div className="content-pane">
             <TransactionsManager> 
                 <div className="transaction-viewer-container">
-                    <h1>Income</h1>
+                    <div className="header-text positive-number">Income</div>
                     <TransactionList filter="income"/>
                     
                 </div>  
-                <div className="transaction-add-container">
+                {/* <div className="transaction-add-container">
                     <h1>Add Income</h1>
                     <AddBudgetItem income={true} />
-                </div>   
+                </div>    */}
             </TransactionsManager>           
         </div>
     )

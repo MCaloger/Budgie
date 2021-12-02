@@ -9,13 +9,13 @@ export default function ExpenseViewer() {
             
             <TransactionsManager>
                 <div className="transaction-viewer-container">
-                    <h1>Expenses</h1>
+                    <div className="header-text negative-number">Expenses</div>
                     <TransactionList filter="expense"/>
                 </div>
-                <div className="transaction-add-container">
+                {/* <div className="transaction-add-container">
                     <h1>Add Expense</h1>
                     <AddBudgetItem income={false} />
-                </div>
+                </div> */}
             </TransactionsManager>           
         </div>
     )

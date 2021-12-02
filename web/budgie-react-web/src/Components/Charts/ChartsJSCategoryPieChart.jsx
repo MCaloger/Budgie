@@ -19,7 +19,8 @@ export default function ChartsJSCategoryPieChart() {
                 {
                     label: "Categories",
                     data: [],
-                    backgroundColor: []
+                    backgroundColor: [],
+                    color: []
                 }
             ] 
         };
@@ -35,6 +36,7 @@ export default function ChartsJSCategoryPieChart() {
                 chartData.labels.push(category.categoryName)
                 chartData.datasets[0].data.push(runningTotal)
                 chartData.datasets[0].backgroundColor.push(ColorBank[index % ColorBank.length])
+                chartData.datasets[0].color.push(ColorBank[index % ColorBank.length])
             }
             
         });
@@ -53,11 +55,17 @@ export default function ChartsJSCategoryPieChart() {
     const options = {
         responsive: true,
         maintainAspectRatio: false,
+        
         plugins: {
           title: {
             display: true,
             text: 'Chart.js Line Chart',
           },
+          legend: {
+            labels: {
+                color: "white"
+            }
+        },
         },
       };
     
@@ -66,13 +74,10 @@ export default function ChartsJSCategoryPieChart() {
             <CategoryContext.Consumer> 
                 {categories => {
                     let data = buildChart(categories)
-                    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-                    console.log('piedata', data, 'col', ColorBank)
                     return (
                         <div className="chart-js-container">
                             <Doughnut data={data} options={options}/>
                         </div>
-                        
                     )
                 }}
             </CategoryContext.Consumer>

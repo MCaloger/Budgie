@@ -10,6 +10,14 @@ export default function CategoryList(props) {
         let categoryNameA = a.categoryName.toUpperCase();
         let categoryNameB = b.categoryName.toUpperCase();
 
+        //sort "None" to bottom
+        if(categoryNameA === "NONE") {
+            return 1
+        }
+        if(categoryNameB === "NONE") {
+            return -1
+        }
+
         if(categoryNameA > categoryNameB) {
             return 1;
         }
