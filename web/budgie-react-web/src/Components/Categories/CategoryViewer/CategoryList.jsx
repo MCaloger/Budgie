@@ -1,10 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { CategoryContext } from '../../../Contexts/CategoryManager/CategoryManager';
 import CategoryItem from './CategoryItem';
+import AddCategoryItem from '../AddCategoryItem/AddCategoryItem';
 
 export default function CategoryList(props) {
 
     const categories = useContext(CategoryContext);
+
+    const [showAdd, setShowAdd] = useState(true)
 
     const sortedCategories = categories.categories.sort((a, b) => {
         let categoryNameA = a.categoryName.toUpperCase();
@@ -29,12 +32,20 @@ export default function CategoryList(props) {
         return 0;
     })
 
+    const toggleShowAdd = () => {
+        setShowAdd(!showAdd)
+    }
+
 
     return (
         <div className="transaction-list">
             <div className="transaction-list-header">
                 <div>Name</div>
+                <div><button onClick={toggleShowAdd}>{showAdd ? "Hide" : "Add New"}</button></div>
             </div>
+
+            {showAdd ? <AddCategoryItem /> : ""}
+
             { sortedCategories.map(category => <CategoryItem key={category.id} id={category.id} categoryName={category.categoryName}></CategoryItem>) }
         </div>
     )

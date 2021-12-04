@@ -57,6 +57,7 @@ export default function AddBudgetItem(props) {
     }
 
     const handleDate = (e) => {
+        console.log("date", e.target.value)
         setDate(e.target.value)
     }
 

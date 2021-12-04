@@ -21,8 +21,6 @@ export function TransactionsManager(props) {
         // convert payload to json
         let url = "";
 
-        console.log(amount)
-
         // route url based on income or expense
         if(amount >= 0) {
             url = "http://localhost:8080/transactions/addIncome"

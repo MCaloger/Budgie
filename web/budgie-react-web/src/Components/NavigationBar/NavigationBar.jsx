@@ -8,8 +8,7 @@ import { ReactComponent as CategoryLogo } from '../../img/categoryicon.svg'
 
 export default function NavigationBar() {
     return (
-        <div className="navbar" >
-            <nav>
+            <nav className="navbar" >
                 <ul className="nav-ul">
                     <li className="nav-li">
                         <Link className="link" to="/">
@@ -34,6 +33,5 @@ export default function NavigationBar() {
                     </li>
                 </ul>
             </nav>
-        </div>
     )
 }

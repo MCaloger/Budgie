@@ -9,7 +9,7 @@ export default function TransactionViewer() {
             <TransactionsManager>
                 <div className="transaction-viewer-container">
                 <div className="header-text neutral-number">Transactions</div>
-                    <TransactionList/>
+                    <TransactionList showAdd={false}/>
 
                 </div> 
             </TransactionsManager>           

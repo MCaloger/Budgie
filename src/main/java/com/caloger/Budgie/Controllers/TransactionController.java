@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,12 +28,19 @@ public class TransactionController {
     @PostMapping(value = "/addExpense", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public void addExpense(@RequestBody Transaction transaction) {
+
+        System.out.println(transaction.toString());
+        System.out.println(transaction.getTransactionDate().toString());
         transactionService.saveExpense(transaction);
     }
 
     @PostMapping(value = "/addIncome", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public void addIncome(@RequestBody Transaction transaction) {
+
+        System.out.println(transaction.toString());
+        System.out.println(LocalDate.now().toString());
+        System.out.println(transaction.getTransactionDate().toString());
         transactionService.saveIncome(transaction);
     }
 

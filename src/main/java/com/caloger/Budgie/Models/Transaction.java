@@ -25,7 +25,7 @@ public class Transaction {
 
     private String note;
 
-    private Date transactionDate;
+    private LocalDate transactionDate;
 
     @Autowired
     @Transient
@@ -34,14 +34,14 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(BigDecimal amount, Category category, String note, Date transactionDate) {
+    public Transaction(BigDecimal amount, Category category, String note, LocalDate transactionDate) {
         this.amount = amount;
         this.category = category;
         this.note = note;
         this.transactionDate = transactionDate;
     }
 
-    public Transaction(long id, BigDecimal amount, Category category, String note, Date transactionDate) {
+    public Transaction(long id, BigDecimal amount, Category category, String note, LocalDate transactionDate) {
         this.id = id;
         this.amount = amount;
         this.category = category;
@@ -81,11 +81,11 @@ public class Transaction {
         this.note = note;
     }
 
-    public Date getTransactionDate() {
+    public LocalDate getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(Date transactionDate) {
+    public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
     }
 

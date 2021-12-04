@@ -1,5 +1,6 @@
 import React from 'react'
 import { TransactionsManager } from '../../../Contexts/TransactionsManager/TransactionsManager'
+import ChartsJSLineChart from '../../Charts/ChartsJSLineChart'
 import AddBudgetItem from '../AddBudgetItem/AddBudgetItem'
 import TransactionList from '../TransactionList/TransactionList'
 
@@ -9,13 +10,8 @@ export default function IncomeViewer() {
             <TransactionsManager> 
                 <div className="transaction-viewer-container">
                     <div className="header-text positive-number">Income</div>
-                    <TransactionList filter="income"/>
-                    
+                    <TransactionList filter="income" showAdd={true}/>
                 </div>  
-                {/* <div className="transaction-add-container">
-                    <h1>Add Income</h1>
-                    <AddBudgetItem income={true} />
-                </div>    */}
             </TransactionsManager>           
         </div>
     )

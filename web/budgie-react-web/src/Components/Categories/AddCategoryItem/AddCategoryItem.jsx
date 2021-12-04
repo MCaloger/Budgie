@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { CategoryContext } from '../../../Contexts/CategoryManager/CategoryManager';
 
-export default function AddBudgetItem(props) {
+export default function AddCategoryItem(props) {
 
     const categories = useContext(CategoryContext);
 
@@ -22,7 +22,6 @@ export default function AddBudgetItem(props) {
     }
 
     return (
-        <div>
             <form className="add-transaction-form" onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="categoryName">Enter name of category:</label>
@@ -34,6 +33,5 @@ export default function AddBudgetItem(props) {
             
                 <button>Submit</button>
             </form>
-        </div>
     )
 }

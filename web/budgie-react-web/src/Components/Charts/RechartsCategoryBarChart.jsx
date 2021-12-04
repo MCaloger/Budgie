@@ -29,7 +29,6 @@ export default function RechartsCategoryBarChart(props) {
 
     const pickColor = () => {
         let color = ColorBank[Math.floor(Math.random()*ColorBank.length)]
-        console.log("col", color)
         return color
     }
     

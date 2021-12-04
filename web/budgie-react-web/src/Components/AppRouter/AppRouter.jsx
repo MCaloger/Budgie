@@ -16,9 +16,10 @@ import Home from "../../Pages/Home";
 
 export default function AppRouter() {
   return (
+  <div className="content">
     <Router baseName="/">
       <NavigationBar></NavigationBar>
-      <div className="content">
+      
         <Switch>
           <CategoryManager>
           <Route exact path="/">
@@ -38,7 +39,8 @@ export default function AppRouter() {
             <div>404</div>
           </Route>
         </Switch>
-      </div>
+      
     </Router>
+    </div>
   );
 }

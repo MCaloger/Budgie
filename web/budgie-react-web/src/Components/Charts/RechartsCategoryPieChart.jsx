@@ -29,7 +29,6 @@ export default function RechartsCategoryPieChart() {
 
     const pickColor = () => {
         let color = ColorBank[Math.floor(Math.random()*ColorBank.length)]
-        console.log("col", color)
         return color
     }
     
@@ -39,7 +38,6 @@ export default function RechartsCategoryPieChart() {
                 {categories => {
                     let data = buildChart(categories)
                     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-                    console.log('piedata', data, 'col', ColorBank)
                     return (
                         <ResponsiveContainer>
                             

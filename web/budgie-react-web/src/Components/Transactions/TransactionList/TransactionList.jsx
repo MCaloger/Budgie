@@ -10,6 +10,7 @@ import ChartsJSCategoryPieChart from '../../Charts/ChartsJSCategoryPieChart';
 
 import TransactionSorting, { sortByAmount, sortingController } from '../../../SortingFunctions/TransactionSorting';
 import AddBudgetItem from '../AddBudgetItem/AddBudgetItem';
+import ChartsJSLineChart from '../../Charts/ChartsJSLineChart';
 
 export default function TransactionList(props) {
 
@@ -83,7 +84,6 @@ export default function TransactionList(props) {
                 ascending
             })
         } catch(err) {
-            console.log(err)
         }
     }
 
@@ -108,19 +108,23 @@ export default function TransactionList(props) {
         <div className="transaction-list">
             <div className="sum-line"><MoneyDisplay amount={ getTotal() }></MoneyDisplay></div>
 
+        <div className="chart-block">
             <div className="chart-display">
-                <ChartsJSCategoryPieChart/>
-            </div>
+                        <ChartsJSLineChart filter={props.filter}/>
+                        <ChartsJSCategoryPieChart/>
+                    </div>
+        </div>
+            
 
             <div className="transaction-list-header">
                 <div onClick={changeSortToAmount}>Amount</div>
                 <div onClick={changeSortToCategory}>Category</div>
                 <div onClick={changeSortToNote}>Note</div>
                 <div onClick={changeSortToDate}>Date</div>
-                <div><button onClick={toggleAddForm}>{showAddForm ? "Hide" : "Add New" }</button></div>
+                <div>{props.showAdd ? <button onClick={toggleAddForm}>{showAddForm ? "Hide" : "Add New" }</button> : ""}</div>
             </div>
 
-            {showAddForm ? <AddBudgetItem income={props.filter === "income" ? true : false}/> : ""}
+            {showAddForm && props.showAdd ? <AddBudgetItem income={props.filter === "income" ? true : false}/> : ""}
             
             { sortTransactions().map(transaction => <TransactionItem key={transaction.id} id={transaction.id} dollars={transaction.amount} category={ transaction.category ? transaction.category.categoryName : ''} note={transaction.note} transactionDate={transaction.transactionDate}></TransactionItem>) }
             

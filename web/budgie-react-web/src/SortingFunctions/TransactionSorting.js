@@ -125,40 +125,47 @@ export const sortByNote = ({transactions, ascending}) => {
 }
 
 export const sortByTransactionDate = ({transactions, ascending}) => {
-    let sortedTransactions = transactions.sort((a, b) => {
-        let itemA = a.transactionDate;
-        let itemB = b.transactionDate;
-
-        if(itemA === "") {
-            if(ascending) {
-                return 1;
-            } else {
-                return -1
-            } 
-        }
-
-        if(itemB === "") {
-            if(ascending) {
-                return -1;
-            } else {
-                return 1
+    try {
+        let sortedTransactions = transactions.sort((a, b) => {
+            let itemA = a.transactionDate;
+            let itemB = b.transactionDate;
+    
+            if(itemA === "") {
+                if(ascending) {
+                    return 1;
+                } else {
+                    return -1
+                } 
             }
+    
+            if(itemB === "") {
+                if(ascending) {
+                    return -1;
+                } else {
+                    return 1
+                }
+            }
+    
+            if(itemA > itemB) {
+                return 1;
+            }
+    
+            if(itemA < itemB) {
+                return -1;
+            }
+            
+            return 0;
+        })
+    
+        if(!ascending) {
+            sortedTransactions.reverse();
         }
-
-        if(itemA > itemB) {
-            return 1;
-        }
-
-        if(itemA < itemB) {
-            return -1;
-        }
+    
+        return sortedTransactions;
+    } catch (error) {
         
-        return 0;
-    })
-
-    if(!ascending) {
-        sortedTransactions.reverse();
     }
 
-    return sortedTransactions;
+    return []
+    
 }

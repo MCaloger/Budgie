@@ -46,7 +46,6 @@ export default function ChartsJSCategoryPieChart() {
 
     const pickColor = () => {
         let color = ColorBank[Math.floor(Math.random()*ColorBank.length)]
-        console.log("col", color)
         return color
     }
 
@@ -75,7 +74,7 @@ export default function ChartsJSCategoryPieChart() {
                 {categories => {
                     let data = buildChart(categories)
                     return (
-                        <div className="chart-js-container">
+                        <div className="chart-js-container main-chart">
                             <Doughnut data={data} options={options}/>
                         </div>
                     )
