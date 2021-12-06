@@ -38,9 +38,6 @@ public class TransactionController {
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public void addIncome(@RequestBody Transaction transaction) {
 
-        System.out.println(transaction.toString());
-        System.out.println(LocalDate.now().toString());
-        System.out.println(transaction.getTransactionDate().toString());
         transactionService.saveIncome(transaction);
     }
 

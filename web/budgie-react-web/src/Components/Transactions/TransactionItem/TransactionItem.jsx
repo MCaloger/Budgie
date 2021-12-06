@@ -12,17 +12,13 @@ export default function TransactionItem(props) {
 
     }
 
-    const handleEdit = () => {
-
-    }
-
     return (
         <div className="transaction-item">
             <span><MoneyDisplay amount={props.dollars}></MoneyDisplay></span>
             <span>{props.category ? props.category : 'Empty'}</span>
             <span>{props.note}</span>
             <span>{props.transactionDate}</span>
-            <span><button onClick={handleEdit}>Edit</button><button onClick={handleDelete}>Delete</button></span>
+            <span><button onClick={handleDelete}>Delete</button></span>
         </div>
     )
 }
