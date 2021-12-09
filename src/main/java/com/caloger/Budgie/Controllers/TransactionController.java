@@ -21,7 +21,6 @@ public class TransactionController {
     @PostMapping(value = "/add", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public void addTransaction(@RequestBody Transaction transaction) {
-        System.out.println(transaction.toString());
         transactionService.saveTransaction(transaction);
     }
 
