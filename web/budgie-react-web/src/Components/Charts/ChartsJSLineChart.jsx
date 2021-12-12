@@ -19,10 +19,54 @@ import { sortByTransactionDate } from '../../SortingFunctions/TransactionSorting
 export default function ChartsJSLineChart(props) {
     const transactionContext = useContext(TransactionContext)
     const categoryContext = useContext(CategoryContext)
+    const [chart, setChart] = useState(null)
+
 
     const chartRef = useRef(null);
 
-    const buildChart = ({transactions, filter}) => {
+    useEffect(() => {
+        let chart = chartRef.current
+
+
+        if(!chart) {
+            return
+        }
+
+        setChart(chart)
+    }, [])
+
+    function createGradient(ctx, area, type) {
+        let colorStart = ""
+        let colorMid = ""
+        let colorEnd = ""
+        
+
+        if(type === "income") {
+            colorStart = "#4CAF50"
+            colorMid = "#4CAF50"
+            colorEnd = "#00BCD4"
+        } else if (type === "expense"){
+            colorStart = "#F44336"
+            colorMid = "#E91E63"
+            colorEnd = "#9C27B0"
+        } else {
+            colorStart = "#8E24AA"
+            colorMid = "#673AB7"
+            colorEnd = "#3F51B5"
+        }
+      
+        const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
+      
+        gradient.addColorStop(0, colorStart);
+        gradient.addColorStop(0.5, colorMid);
+        gradient.addColorStop(1, colorEnd);
+
+        console.log("grad", gradient)
+      
+        return gradient;
+      }
+
+    const buildChart = ({transactions, filter, chart}) => {
         const chartData = { 
             labels: [],
             datasets: []
@@ -31,24 +75,21 @@ export default function ChartsJSLineChart(props) {
         const incomeDataset = {
             label: "Income",
             data: [],
-            borderColor: "green",
-            backgroundColor: "green",
+            borderColor: chart ? createGradient(chart.ctx, chart.chartArea, "income") :"green",
             color: []
         }
 
         const expenseDataset = {
             label: "Expenses",
             data: [],
-            borderColor: "red",
-            backgroundColor: "red",
+            borderColor: chart ? createGradient(chart.ctx, chart.chartArea, "expense") : "red",
             color: []
         }
 
         const resultDataset = {
             label: "Result",
             data: [],
-            borderColor: "purple",
-            backgroundColor: "purple",
+            borderColor: chart ? createGradient(chart.ctx, chart.chartArea) : "purple",
             color: []
         }
 
@@ -129,18 +170,18 @@ export default function ChartsJSLineChart(props) {
         },
         },
       };
+
+      if(chart) {
+          console.log("yes", chart)
+      }
+
+      let data = buildChart({transactions: transactionContext.transactions, filter: props.filter, chart})
     
     return (
 
-            <TransactionContext.Consumer> 
-                {transactions => {
-                    let data = buildChart({transactions: transactions.transactions, filter: props.filter})
-                    return (
-                        <div className="chart-js-container">
-                            <Line data={data} options={options}/>
-                        </div>
-                    )
-                }}
-            </TransactionContext.Consumer>
+            <div className="chart-js-container">
+                <Line ref={chartRef} data={data} options={options}/>
+            </div>         
+
     )
 }
