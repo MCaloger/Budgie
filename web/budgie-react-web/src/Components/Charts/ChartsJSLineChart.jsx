@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 
 import {  Chart as ChartJS,
     CategoryScale,
@@ -19,6 +19,8 @@ import { sortByTransactionDate } from '../../SortingFunctions/TransactionSorting
 export default function ChartsJSLineChart(props) {
     const transactionContext = useContext(TransactionContext)
     const categoryContext = useContext(CategoryContext)
+
+    const chartRef = useRef(null);
 
     const buildChart = ({transactions, filter}) => {
         const chartData = { 
@@ -61,10 +63,12 @@ export default function ChartsJSLineChart(props) {
             }
         })
 
-        dates.forEach(date => {
             let runningTotal = 0;
             let positiveTotal = 0;
             let negativeTotal = 0;
+
+        dates.forEach(date => {
+            
             let resultTotal = 0;
 
             sortedTransactions.forEach(transaction => {
