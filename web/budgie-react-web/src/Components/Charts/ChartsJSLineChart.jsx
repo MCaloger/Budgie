@@ -55,7 +55,7 @@ export default function ChartsJSLineChart(props) {
             colorEnd = "#3F51B5"
         }
       
-        const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
+        const gradient = ctx.createLinearGradient(0, area.height/2, area.right, area.height/2);
       
         gradient.addColorStop(0, colorStart);
         gradient.addColorStop(0.5, colorMid);
@@ -165,7 +165,7 @@ export default function ChartsJSLineChart(props) {
           },
           legend: {
             labels: {
-                color: "white"
+                color: "grey"
             }
         },
         },
@@ -178,10 +178,8 @@ export default function ChartsJSLineChart(props) {
       let data = buildChart({transactions: transactionContext.transactions, filter: props.filter, chart})
     
     return (
-
-            <div className="chart-js-container">
-                <Line ref={chartRef} data={data} options={options}/>
-            </div>         
-
+        <div className="chart-js-container">
+            <Line ref={chartRef} data={data} options={options}/>
+        </div>         
     )
 }

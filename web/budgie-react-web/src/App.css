@@ -2,46 +2,12 @@
   box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 body {
   font-family: 'Montserrat', sans-serif;
   /* background-color: #212121; */
-  /* background-color: black;;
-  color: white; */
+  background-color: #eee;
+  color: black;
+  /* color: white; */ 
 }
 
 .App {
@@ -115,16 +81,18 @@ body {
 
 .link {
   text-decoration:none; 
-  color: white;
+  color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+a:visited {color:black}
+
 .link:hover {
   
-  color: white;
+  color: grey;
 }
 
 .link > * {
@@ -214,7 +182,7 @@ body {
 }
 
 .positive-number {
-  background: linear-gradient(to right, #4CAF50, #009688, #00BCD4); 
+  background: linear-gradient(to right, #4CAF50, #4CAF50, #00BCD4); 
   background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: bold;
@@ -343,4 +311,26 @@ label {
 
 .hidden {
   display: none;
+}
+
+.ui-icon {
+  all: unset;
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+}
+
+path:hover {
+  stroke: red;
+}
+
+.ui-icon-toolbar {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.ui-icon-toolbar > * {
+  margin-left: 4px;
+  margin-right: 4px;
 }

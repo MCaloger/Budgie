@@ -11,23 +11,23 @@ export default function NavigationBar() {
             <nav className="navbar" >
                 <ul className="nav-ul">
                     <li className="nav-li">
-                        <Link className="link" to="/">
+                        <Link className="link neutral-number" to="/">
                             <TransactionLogo className="nav-icon" />
                             <div>Transactions</div>
                         </Link>
                     </li>
                     <li className="nav-li">
-                        <Link className="link" to="/income">
+                        <Link className="link positive-number" to="/income">
                             <IncomeLogo className="nav-icon"/>
                             Income</Link>
                     </li>
                     <li className="nav-li">
-                        <Link className="link" to="/expenses">
+                        <Link className="link negative-number" to="/expenses">
                             <ExpenseLogo className="nav-icon" />
                             Expenses</Link>
                     </li>
                     <li className="nav-li">
-                        <Link className="link" to="/categories">
+                        <Link className="link category-display" to="/categories">
                             <CategoryLogo className="nav-icon" />
                             Categories</Link>
                     </li>

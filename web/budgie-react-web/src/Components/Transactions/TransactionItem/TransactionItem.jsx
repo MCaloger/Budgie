@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { TransactionContext } from '../../../Contexts/TransactionsManager/TransactionsManager'
 import MoneyDisplay from '../../MoneyDisplay/MoneyDisplay'
+import {ReactComponent as TrashIcon} from '../../../img/trashicon.svg'
 
 
 export default function TransactionItem(props) {
@@ -18,7 +19,7 @@ export default function TransactionItem(props) {
             <span>{props.category ? props.category : 'Empty'}</span>
             <span>{props.note}</span>
             <span>{props.transactionDate}</span>
-            <span><button onClick={handleDelete}>Delete</button></span>
+            <span><button className="ui-icon" onClick={handleDelete}><TrashIcon  /></button></span>
         </div>
     )
 }

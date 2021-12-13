@@ -3,6 +3,8 @@ import React, { useState, useContext, useEffect, useRef } from 'react'
 import { CategoryContext, CategoryManager } from '../../../Contexts/CategoryManager/CategoryManager';
 import { TransactionContext } from '../../../Contexts/TransactionsManager/TransactionsManager';
 import CategorySelector from '../../Categories/CategorySelector/CategorySelector';
+import {ReactComponent as ClearIcon} from '../../../img/clearicon.svg'
+import {ReactComponent as AddIcon} from '../../../img/addicon.svg'
 
 export default function AddBudgetItem(props) {
 
@@ -23,6 +25,8 @@ export default function AddBudgetItem(props) {
     const [note, setNote] = useState('');
 
     const [date, setDate] = useState(today);
+
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -110,9 +114,12 @@ export default function AddBudgetItem(props) {
                     
                 </div>
                 
-                <div className="form-button-container">
-                    <button type="reset" className="form-button reset-button">Clear</button>
-                    <button type="submit" className="form-button submit-button">Submit</button>
+                <div className="form-button-container ui-icon-toolbar">
+
+                        <button type="reset" className="ui-icon"><ClearIcon /></button>
+                        <button type="submit" className="ui-icon"><AddIcon /></button>
+
+                    
                 </div>
                 
             </form>
