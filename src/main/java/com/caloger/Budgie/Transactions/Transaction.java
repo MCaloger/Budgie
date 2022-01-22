@@ -1,14 +1,12 @@
-package com.caloger.Budgie.Models;
+package com.caloger.Budgie.Transactions;
 
-import com.caloger.Budgie.Services.CategoryService;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.caloger.Budgie.Categories.Category;
+import com.caloger.Budgie.Categories.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Entity
 @Table(name = "Transaction")

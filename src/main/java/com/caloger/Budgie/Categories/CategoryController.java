@@ -1,7 +1,5 @@
-package com.caloger.Budgie.Controllers;
+package com.caloger.Budgie.Categories;
 
-import com.caloger.Budgie.Models.Category;
-import com.caloger.Budgie.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;

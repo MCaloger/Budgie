@@ -1,13 +1,11 @@
-package com.caloger.Budgie.Controllers;
+package com.caloger.Budgie.Transactions;
 
-import com.caloger.Budgie.Models.Transaction;
-import com.caloger.Budgie.Services.CategoryService;
-import com.caloger.Budgie.Services.TransactionService;
+import com.caloger.Budgie.Transactions.Transaction;
+import com.caloger.Budgie.Transactions.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +26,6 @@ public class TransactionController {
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public void addExpense(@RequestBody Transaction transaction) {
 
-        System.out.println(transaction.toString());
-        System.out.println(transaction.getTransactionDate().toString());
         transactionService.saveExpense(transaction);
     }
 

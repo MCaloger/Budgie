@@ -1,16 +1,13 @@
 package com.caloger.Budgie;
 
-import com.caloger.Budgie.Models.Category;
-import com.caloger.Budgie.Models.Transaction;
-import com.caloger.Budgie.Services.CategoryService;
-import com.caloger.Budgie.Services.TransactionService;
+import com.caloger.Budgie.Categories.Category;
+import com.caloger.Budgie.Categories.CategoryService;
+import com.caloger.Budgie.Transactions.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.time.LocalDate;
 
 @SpringBootApplication

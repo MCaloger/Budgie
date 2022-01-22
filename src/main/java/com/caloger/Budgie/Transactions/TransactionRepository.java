@@ -1,6 +1,5 @@
-package com.caloger.Budgie.Repositories;
+package com.caloger.Budgie.Transactions;
 
-import com.caloger.Budgie.Models.Transaction;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

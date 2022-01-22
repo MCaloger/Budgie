@@ -1,4 +1,6 @@
-package com.caloger.Budgie.Models;
+package com.caloger.Budgie.Categories;
+
+import com.caloger.Budgie.Transactions.Transaction;
 
 import javax.persistence.*;
 import java.util.List;

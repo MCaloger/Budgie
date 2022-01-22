@@ -1,7 +1,5 @@
-package com.caloger.Budgie.Services;
+package com.caloger.Budgie.Categories;
 
-import com.caloger.Budgie.Models.Category;
-import com.caloger.Budgie.Repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,5 @@
-package com.caloger.Budgie.Services;
+package com.caloger.Budgie.Transactions;
 
-import com.caloger.Budgie.Models.Transaction;
-import com.caloger.Budgie.Repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;

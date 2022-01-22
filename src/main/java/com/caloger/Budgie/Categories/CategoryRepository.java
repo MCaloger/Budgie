@@ -1,6 +1,5 @@
-package com.caloger.Budgie.Repositories;
+package com.caloger.Budgie.Categories;
 
-import com.caloger.Budgie.Models.Category;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

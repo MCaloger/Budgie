@@ -1,15 +1,14 @@
 package com.caloger.Budgie.Services;
 
-import com.caloger.Budgie.Models.Transaction;
-import com.caloger.Budgie.Models.Category;
+import com.caloger.Budgie.Transactions.Transaction;
+import com.caloger.Budgie.Categories.Category;
+import com.caloger.Budgie.Transactions.TransactionService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionServiceTest {
 
