@@ -54,17 +54,12 @@ export default function ChartsJSCategoryPieChart() {
     const options = {
         responsive: true,
         maintainAspectRatio: false,
-        
-        plugins: {
-          title: {
-            display: true,
-            text: 'Chart.js Line Chart',
-          },
-          legend: {
-            labels: {
-                color: "white"
-            }
-        },
+            plugins: {
+            legend: {
+                labels: {
+                    color: "grey"
+                }
+            },
         },
       };
     

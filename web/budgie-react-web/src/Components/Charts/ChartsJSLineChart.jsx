@@ -76,21 +76,24 @@ export default function ChartsJSLineChart(props) {
             label: "Income",
             data: [],
             borderColor: chart ? createGradient(chart.ctx, chart.chartArea, "income") :"green",
-            color: []
+            color: [],
+            tension: 0.3
         }
 
         const expenseDataset = {
             label: "Expenses",
             data: [],
             borderColor: chart ? createGradient(chart.ctx, chart.chartArea, "expense") : "red",
-            color: []
+            color: [],
+            tension: 0.3
         }
 
         const resultDataset = {
             label: "Result",
             data: [],
             borderColor: chart ? createGradient(chart.ctx, chart.chartArea) : "purple",
-            color: []
+            color: [],
+            tension: 0.3
         }
 
 
@@ -157,23 +160,14 @@ export default function ChartsJSLineChart(props) {
     const options = {
         responsive: true,
         maintainAspectRatio: false,
-        
-        plugins: {
-          title: {
-            display: true,
-            text: 'Chart.js Line Chart',
-          },
-          legend: {
-            labels: {
-                color: "grey"
-            }
-        },
+            plugins: {
+            legend: {
+                labels: {
+                    color: "grey"
+                }
+            },
         },
       };
-
-      if(chart) {
-          console.log("yes", chart)
-      }
 
       let data = buildChart({transactions: transactionContext.transactions, filter: props.filter, chart})
     

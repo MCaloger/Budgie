@@ -111,7 +111,7 @@ export default function TransactionList(props) {
         <div className="chart-block">
             <div className="chart-display">
                         <ChartsJSLineChart filter={props.filter}/>
-                        <ChartsJSCategoryPieChart/>
+                        {props.filter === "income" || props.filter === "expense" ? <ChartsJSCategoryPieChart /> : ""}
                     </div>
         </div>
             
