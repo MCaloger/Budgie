@@ -10,7 +10,7 @@ export const sortingController = ({sortType, transactions, ascending}) => {
         case "transactionDate":
             return sortByTransactionDate({transactions, ascending})
         default:
-            throw `Error: SortType:${sortType}`
+            throw new Error(`Error: SortType:${sortType}`);
     }
 
 }

@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { CategoryContext } from '../../../Contexts/CategoryManager/CategoryManager';
+import {ReactComponent as AddIcon} from '../../../img/addicon.svg'
 
 export default function AddCategoryItem(props) {
 
@@ -31,7 +32,7 @@ export default function AddCategoryItem(props) {
                     
                 </div>
             
-                <button>Submit</button>
+                <button className="show-hide-button"><AddIcon classname="ui-icon"/></button>
             </form>
     )
 }

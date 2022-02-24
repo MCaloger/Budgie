@@ -3,6 +3,9 @@ import { CategoryContext } from '../../../Contexts/CategoryManager/CategoryManag
 import CategoryItem from './CategoryItem';
 import AddCategoryItem from '../AddCategoryItem/AddCategoryItem';
 
+import {ReactComponent as ShowIcon} from '../../../img/show.svg'
+import {ReactComponent as HideIcon} from '../../../img/hide.svg'
+
 export default function CategoryList(props) {
 
     const categories = useContext(CategoryContext);
@@ -41,7 +44,7 @@ export default function CategoryList(props) {
         <div className="transaction-list">
             <div className="transaction-list-header">
                 <div>Name</div>
-                <div><button onClick={toggleShowAdd}>{showAdd ? "Hide" : "Add New"}</button></div>
+                <div className="show-hide-button" onClick={toggleShowAdd}>{showAdd ? <ShowIcon /> : <HideIcon />}</div>
             </div>
 
             {showAdd ? <AddCategoryItem /> : ""}
