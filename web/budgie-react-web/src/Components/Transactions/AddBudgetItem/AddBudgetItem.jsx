@@ -67,6 +67,46 @@ export default function AddBudgetItem(props) {
         setDate(e.target.value)
     }
 
+<<<<<<< Updated upstream
+=======
+    const handleMoney = (e) => {
+        let original = e.target.value;
+        let split = original.split(".")
+        console.log(split, original)
+        let dollars = 0;
+        let cents = "00";
+
+
+        // check if cents are added
+        if(original === split[0]) {
+            dollars = original;
+
+            // no cents added
+            setDisplay(`${dollars}.00`)
+
+            setDollars(dollars)
+        } else {
+            // cents added
+            dollars = parseInt(split[0])
+            cents = split[1];
+            console.log(cents.length)
+            if(cents.length > 1) {
+                cents = cents.substring(0, 1);
+            }
+
+            setDisplay(`${original}.${cents}`)
+            setDollars(dollars)
+            setCents(cents)
+        }
+        
+
+    }
+
+    const handleInputChange = (e) => {
+        setDisplay(e.target.value);
+    }
+
+>>>>>>> Stashed changes
 
     const resetForm = () => {
         setDollars(0);
@@ -82,6 +122,11 @@ export default function AddBudgetItem(props) {
                     <label htmlFor="transactionDollarAmount">Enter dollar amount of transaction:</label>
                     <div>
                         <span>{ props.income ? "" : "-" }$<input type="number" name="transactionDollarAmount" id="transactionDollarAmount" min="0" max="99999" value={dollars} onChange={handleDollarChange}/>.<input type="text" min="0" max="99" size="2" value={cents} onChange={handleCentsChange}/></span>
+<<<<<<< Updated upstream
+=======
+
+                        {/* <span>{ props.income ? "" : "-" }$<input type="text" name="transactionDollarAmount" id="transactionDollarAmount" onChange ={handleInputChange} value={display} onBlur={handleMoney}/></span> */}
+>>>>>>> Stashed changes
                     </div>
                     
                 </div>
