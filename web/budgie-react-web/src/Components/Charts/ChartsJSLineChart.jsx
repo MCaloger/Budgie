@@ -60,8 +60,6 @@ export default function ChartsJSLineChart(props) {
         gradient.addColorStop(0, colorStart);
         gradient.addColorStop(0.5, colorMid);
         gradient.addColorStop(1, colorEnd);
-
-        console.log("grad", gradient)
       
         return gradient;
       }
