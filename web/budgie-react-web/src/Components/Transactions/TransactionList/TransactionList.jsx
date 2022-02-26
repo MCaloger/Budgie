@@ -12,6 +12,9 @@ import TransactionSorting, { sortByAmount, sortingController } from '../../../So
 import AddBudgetItem from '../AddBudgetItem/AddBudgetItem';
 import ChartsJSLineChart from '../../Charts/ChartsJSLineChart';
 
+import {ReactComponent as ShowIcon} from '../../../img/show.svg'
+import {ReactComponent as HideIcon} from '../../../img/hide.svg'
+
 export default function TransactionList(props) {
 
     const transactions = useContext(TransactionContext)
@@ -121,7 +124,7 @@ export default function TransactionList(props) {
                 <div onClick={changeSortToCategory}>Category</div>
                 <div onClick={changeSortToNote}>Note</div>
                 <div onClick={changeSortToDate}>Date</div>
-                <div>{props.showAdd ? <button onClick={toggleAddForm}>{showAddForm ? "Hide" : "Add New" }</button> : ""}</div>
+                <div>{props.showAdd ? <button class="ui-icon" onClick={toggleAddForm}>{showAddForm ? <ShowIcon /> : <HideIcon /> }</button> : ""}</div>
             </div>
 
             {showAddForm && props.showAdd ? <AddBudgetItem income={props.filter === "income" ? true : false}/> : ""}

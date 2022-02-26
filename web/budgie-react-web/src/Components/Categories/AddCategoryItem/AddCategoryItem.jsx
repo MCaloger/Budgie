@@ -32,7 +32,9 @@ export default function AddCategoryItem(props) {
                     
                 </div>
             
-                <button className="show-hide-button"><AddIcon classname="ui-icon"/></button>
+                <div className='show-hide-button'>
+                    <button class="ui-icon"><AddIcon  /></button>
+                </div>
             </form>
     )
 }

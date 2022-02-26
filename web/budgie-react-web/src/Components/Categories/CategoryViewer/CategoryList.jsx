@@ -44,7 +44,7 @@ export default function CategoryList(props) {
         <div className="transaction-list">
             <div className="transaction-list-header">
                 <div>Name</div>
-                <div className="show-hide-button" onClick={toggleShowAdd}>{showAdd ? <ShowIcon /> : <HideIcon />}</div>
+                <div className="show-hide-button" onClick={toggleShowAdd}>{showAdd ? <ShowIcon class="ui-icon" /> : <HideIcon class="ui-icon"/>}</div>
             </div>
 
             {showAdd ? <AddCategoryItem /> : ""}
