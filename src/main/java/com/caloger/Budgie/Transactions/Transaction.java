@@ -15,6 +15,8 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+
     private BigDecimal amount;
 
     @ManyToOne(targetEntity = Category.class)

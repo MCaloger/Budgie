@@ -24,7 +24,7 @@ public class BudgieApplication {
 	}
 
 	@PostConstruct
-	void init() {
+	void init() throws Exception {
 		LocalDate localDate = LocalDate.now();
 
 		categoryService.saveCategory(new Category("None"));

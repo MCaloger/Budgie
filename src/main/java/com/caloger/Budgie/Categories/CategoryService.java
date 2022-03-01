@@ -11,12 +11,22 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public void saveCategory(Category category) {
-        categoryRepository.save(category);
+    public void saveCategory(Category category) throws Exception {
+        try {
+            categoryRepository.save(category);
+        } catch(Exception exception) {
+            throw new Exception();
+        }
+
     }
 
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+    public List<Category> getAllCategories() throws Exception {
+        try {
+            return categoryRepository.findAll();
+        } catch(Exception exception) {
+            throw new Exception();
+        }
+
     }
 
     public Category getCategoryById(Long id) {

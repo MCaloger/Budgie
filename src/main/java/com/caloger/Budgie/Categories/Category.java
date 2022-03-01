@@ -3,6 +3,7 @@ package com.caloger.Budgie.Categories;
 import com.caloger.Budgie.Transactions.Transaction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -13,7 +14,9 @@ public class Category {
     private Long id;
 
     @Column(unique=true)
+    @NotBlank(message = "Category must have a name.")
     private String categoryName;
+
     private boolean isIncome;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST, orphanRemoval = true)
