@@ -59,4 +59,12 @@ public class Category {
     public void setIncome(boolean income) {
         isIncome = income;
     }
+
+    public boolean validate() {
+        if(this.categoryName == null || this.categoryName == "" ) {
+            return false;
+        }
+
+        return true;
+    }
 }

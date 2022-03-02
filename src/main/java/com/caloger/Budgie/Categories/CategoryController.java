@@ -18,8 +18,14 @@ public class CategoryController {
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<String> addCategory(@RequestBody Category category) {
         try {
-            categoryService.saveCategory(category);
-            return ResponseEntity.ok().body("Category created.");
+            System.out.println(category.toString());
+            if(category.validate()) {
+                categoryService.saveCategory(category);
+                return ResponseEntity.ok().body("Category created.");
+            } else {
+                return ResponseEntity.badRequest().body("Error");
+            }
+
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error");
         }
@@ -27,14 +33,27 @@ public class CategoryController {
 
     @DeleteMapping(value = "/delete", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
-    public void deleteCategory(@Param("id") long id) {
+    public ResponseEntity<String> deleteCategory(@Param("id") long id) {
+
+
+        try {
             categoryService.deleteCategory(id);
+            return ResponseEntity.ok().body("Category created.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error");
+        }
     }
 
     @GetMapping("/{id}")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
-    public Category getCategory(@PathVariable("id") long id) {
-        return categoryService.getCategoryById(id);
+    public ResponseEntity<Category> getCategory(@PathVariable("id") long id) {
+        try {
+            Category category = categoryService.getCategoryById(id);
+
+            return ResponseEntity.ok().body(category);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("/all")

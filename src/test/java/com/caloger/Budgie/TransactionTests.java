@@ -24,6 +24,6 @@ public class TransactionTests {
 
     @Test
     public void transactionShouldReturnListOfTransactions() throws Exception {
-        this.mockMvc.perform(get("/transactions/all")).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(get("/transactions/all")).andExpect(status().isOk());
     }
 }

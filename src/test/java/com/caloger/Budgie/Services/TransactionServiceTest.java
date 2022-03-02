@@ -16,12 +16,6 @@ class TransactionServiceTest {
     TransactionService transactionService;
 
     @Test
-    void shouldSaveExpense() {
-        transactionService.saveExpense(new Transaction(new BigDecimal(10.00), new Category("Food"), "", LocalDate.now()));
-        Assertions.assertFalse(transactionService.getAllExpenseTransactions().isEmpty());
-    }
-
-    @Test
     void saveIncome() {
     }
 
