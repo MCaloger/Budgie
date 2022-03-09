@@ -28,7 +28,7 @@ public class TransactionController {
     public ResponseEntity<String> addTransaction(@RequestBody Transaction transaction) {
         try {
             transactionService.saveTransaction(transaction);
-            return ResponseEntity.accepted().body("Ok.");
+            return ResponseEntity.ok().body("Ok.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error");
         }
@@ -44,7 +44,7 @@ public class TransactionController {
     public ResponseEntity<String> addExpense(@RequestBody Transaction transaction) {
         try {
             transactionService.saveExpense(transaction);
-            return ResponseEntity.accepted().body("Ok.");
+            return ResponseEntity.ok().body("Ok.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error");
         }
@@ -55,7 +55,7 @@ public class TransactionController {
     public ResponseEntity<String> addIncome(@RequestBody Transaction transaction) {
         try {
             transactionService.saveIncome(transaction);
-            return ResponseEntity.accepted().body("Ok.");
+            return ResponseEntity.ok().body("Ok.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error");
         }
@@ -71,7 +71,7 @@ public class TransactionController {
     public ResponseEntity<String> deleteTransaction(@Param("id") int id) {
         try {
             transactionService.deleteTransactionById(id);
-            return ResponseEntity.accepted().body("Ok.");
+            return ResponseEntity.ok().body("Ok.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error");
         }
@@ -87,7 +87,7 @@ public class TransactionController {
     public ResponseEntity<Optional<Transaction>> getTransaction(@Param("id") long id) {
         try {
             Optional<Transaction> transaction = transactionService.getTransactionById(id);
-            return ResponseEntity.accepted().body(transaction);
+            return ResponseEntity.ok().body(transaction);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
@@ -103,7 +103,7 @@ public class TransactionController {
 
         try {
             List<Transaction> transactions = transactionService.getAllTransactions();
-            return ResponseEntity.accepted().body(transactions);
+            return ResponseEntity.ok().body(transactions);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
@@ -118,7 +118,7 @@ public class TransactionController {
     public ResponseEntity<List<Transaction>> getAllIncomeTransactions() {
         try {
             List<Transaction> transactions = transactionService.getAllIncomeTransactions();
-            return ResponseEntity.accepted().body(transactions);
+            return ResponseEntity.ok().body(transactions);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
@@ -133,7 +133,7 @@ public class TransactionController {
     public ResponseEntity<List<Transaction>> getAllExpenseTransactions() {
         try {
             List<Transaction> transactions = transactionService.getAllExpenseTransactions();
-            return ResponseEntity.accepted().body(transactions);
+            return ResponseEntity.ok().body(transactions);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }

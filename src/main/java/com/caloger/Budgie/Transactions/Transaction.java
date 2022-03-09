@@ -41,6 +41,13 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
+    public Transaction(BigDecimal amount, Category category, String note) {
+        this.amount = amount;
+        this.category = category;
+        this.note = note;
+        this.transactionDate = LocalDate.now();
+    }
+
     public Transaction(long id, BigDecimal amount, Category category, String note, LocalDate transactionDate) {
         this.id = id;
         this.amount = amount;

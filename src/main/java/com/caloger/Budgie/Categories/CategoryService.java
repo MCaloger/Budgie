@@ -15,6 +15,7 @@ public class CategoryService {
         try {
             categoryRepository.save(category);
         } catch(Exception exception) {
+            exception.printStackTrace();
             throw new Exception();
         }
 

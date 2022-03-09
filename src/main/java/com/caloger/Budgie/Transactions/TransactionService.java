@@ -25,8 +25,8 @@ public class TransactionService {
         transactionRepository.save(transaction);
     }
 
-    public void saveIncome(Transaction transaction) {
-        transactionRepository.save(transaction);
+    public Transaction saveIncome(Transaction transaction) {
+        return transactionRepository.save(transaction);
     }
 
     public List<Transaction> getAllTransactions() {
