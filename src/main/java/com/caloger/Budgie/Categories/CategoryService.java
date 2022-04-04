@@ -8,12 +8,16 @@ import java.util.Optional;
 
 @Service
 public class CategoryService {
-    @Autowired
+
     private CategoryRepository categoryRepository;
 
-    public void saveCategory(Category category) throws Exception {
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
+    public Category saveCategory(Category category) throws Exception {
         try {
-            categoryRepository.save(category);
+            return categoryRepository.save(category);
         } catch(Exception exception) {
             exception.printStackTrace();
             throw new Exception();

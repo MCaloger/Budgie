@@ -1,12 +1,20 @@
 package com.caloger.Budgie.Services;
 
+import com.caloger.Budgie.Categories.CategoryRepository;
 import com.caloger.Budgie.Categories.CategoryService;
 import com.caloger.Budgie.Transactions.Transaction;
 import com.caloger.Budgie.Categories.Category;
+import com.caloger.Budgie.Transactions.TransactionRepository;
 import com.caloger.Budgie.Transactions.TransactionService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -17,14 +25,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class TransactionServiceTest {
 
+    @Mock
+    TransactionRepository transactionRepository;
 
+    @Mock
+    CategoryRepository categoryRepository;
+
+    @InjectMocks
     @Autowired
     TransactionService transactionService;
 
     @Autowired
-    static CategoryService categoryService;
+    @InjectMocks
+    CategoryService categoryService;
 
     @Test
     void saveIncome() throws Exception {
@@ -34,8 +50,10 @@ class TransactionServiceTest {
 
         Category testCategory;
 
-        categoryService.saveCategory(NEWCATEGORY);
-        testCategory = categoryService.getCategoryByCategoryName(TESTNAME);
+        testCategory = categoryService.saveCategory(NEWCATEGORY);
+
+        //Mockito.when(transactionRepository.save(trans)).thenReturn(NEWCATEGORY);
+
 
         final BigDecimal AMOUNT = new BigDecimal(10.00);
 
@@ -83,6 +101,8 @@ class TransactionServiceTest {
         expenseTransactions.forEach(expense -> {
             transactionService.saveExpense(expense);
         });
+
+        System.out.println(transactionService.getAllExpenseTransactions().size());
 
         Assertions.assertEquals(transactionService.getAllExpenseTransactions().size(), 2);
     }

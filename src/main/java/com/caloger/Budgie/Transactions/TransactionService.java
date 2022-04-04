@@ -8,8 +8,12 @@ import java.util.Optional;
 
 @Service
 public class TransactionService {
-    @Autowired
+
     private TransactionRepository transactionRepository;
+
+    public TransactionService(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
 
     public void saveTransaction(Transaction transaction) {
         transactionRepository.save(transaction);
