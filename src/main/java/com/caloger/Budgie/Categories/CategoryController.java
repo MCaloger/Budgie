@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("categories")
+@RequestMapping("/api/v1/categories")
 public class CategoryController {
 
     @Autowired

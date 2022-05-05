@@ -341,3 +341,8 @@ path:hover {
   margin-left: 4px;
   margin-right: 4px;
 }
+
+.column {
+  user-select: none;
+  cursor: n-resize;
+}

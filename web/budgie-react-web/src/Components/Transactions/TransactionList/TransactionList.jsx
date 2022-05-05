@@ -120,11 +120,11 @@ export default function TransactionList(props) {
             
 
             <div className="transaction-list-header">
-                <div onClick={changeSortToAmount}>Amount</div>
-                <div onClick={changeSortToCategory}>Category</div>
-                <div onClick={changeSortToNote}>Note</div>
-                <div onClick={changeSortToDate}>Date</div>
-                <div>{props.showAdd ? <button class="ui-icon" onClick={toggleAddForm}>{showAddForm ? <ShowIcon /> : <HideIcon /> }</button> : ""}</div>
+                <div className="column" onClick={changeSortToAmount}>Amount</div>
+                <div className="column" onClick={changeSortToCategory}>Category</div>
+                <div className="column" onClick={changeSortToNote}>Note</div>
+                <div className="column" onClick={changeSortToDate}>Date</div>
+                <div>{props.showAdd ? <button className="ui-icon" onClick={toggleAddForm}>{showAddForm ? <ShowIcon /> : <HideIcon /> }</button> : ""}</div>
             </div>
 
             {showAddForm && props.showAdd ? <AddBudgetItem income={props.filter === "income" ? true : false}/> : ""}

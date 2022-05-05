@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { API_ROUTE } from "../../app-settings";
 
 export const CategoryContext = React.createContext();
 
@@ -12,7 +13,7 @@ export function CategoryManager(props) {
 
     async function getCategoryById(id) {
         try {
-            const response = await fetch(`http://127.0.0.1:8080/categories/${id}`, {
+            const response = await fetch(`${API_ROUTE}/categories/${id}`, {
             method: 'GET', 
             headers: {
                 'Accept': 'application/json',
@@ -33,7 +34,7 @@ export function CategoryManager(props) {
         try {
             const body = JSON.stringify({categoryName});
 
-            const response = await fetch("http://127.0.0.1:8080/categories/add", {
+            const response = await fetch(`${API_ROUTE}/categories/add`, {
             method: 'POST', 
             headers: {
                 'Accept': 'application/json',
@@ -51,7 +52,7 @@ export function CategoryManager(props) {
 
     async function updateCategories() { 
         try {
-            const response = await fetch("http://127.0.0.1:8080/categories/all", {
+            const response = await fetch(`${API_ROUTE}/categories/all`, {
                 method: 'GET', 
                 headers: {
                     'Accept': 'application/json',
@@ -69,7 +70,7 @@ export function CategoryManager(props) {
 
     async function deleteCategory(id) { 
         try {
-            const response = await fetch(`http://127.0.0.1:8080/categories/delete?id=${id}`, {
+            const response = await fetch(`${API_ROUTE}/categories/delete?id=${id}`, {
                 method: 'DELETE', 
                 headers: {
                     'Accept': 'application/json',

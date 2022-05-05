@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
+import { API_ROUTE } from '../../app-settings';
 import { CategoryContext } from '../CategoryManager/CategoryManager';
 
 export const TransactionContext = React.createContext();
@@ -23,9 +24,9 @@ export function TransactionsManager(props) {
 
         // route url based on income or expense
         if(amount >= 0) {
-            url = "http://localhost:8080/transactions/addIncome"
+            url = `${API_ROUTE}/transactions/addIncome`
         } else {
-            url = "http://localhost:8080/transactions/addExpense"
+            url = `${API_ROUTE}/transactions/addExpense`
         }
         const body = JSON.stringify({amount, category:categoryObject, note, transactionDate});
 
@@ -48,7 +49,7 @@ export function TransactionsManager(props) {
 
     async function deleteTransaction(id) {
         try {
-            const response = await fetch(`http://localhost:8080/transactions/delete/?id=${id}`, {
+            const response = await fetch(`${API_ROUTE}/transactions/delete/?id=${id}`, {
                 method: 'DELETE', 
                 headers: {
                     'Accept': 'application/json',
@@ -64,7 +65,7 @@ export function TransactionsManager(props) {
 
     async function updateTransactions() {
         try {
-            const response = await fetch("http://localhost:8080/transactions/all", {
+            const response = await fetch(`${API_ROUTE}/transactions/all`, {
                 method: 'GET', 
                 headers: {
                     'Accept': 'application/json',

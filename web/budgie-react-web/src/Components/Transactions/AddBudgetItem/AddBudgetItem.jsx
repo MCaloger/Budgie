@@ -5,7 +5,6 @@ import { TransactionContext } from '../../../Contexts/TransactionsManager/Transa
 import CategorySelector from '../../Categories/CategorySelector/CategorySelector';
 import {ReactComponent as ClearIcon} from '../../../img/clearicon.svg'
 import {ReactComponent as AddIcon} from '../../../img/addicon.svg'
-import MoneyInput from './MoneyInput';
 import CategoryPicker from './CategoryPicker';
 
 export default function AddBudgetItem(props) {
@@ -18,9 +17,9 @@ export default function AddBudgetItem(props) {
 
     const formRef = useRef(null)
 
-    const [dollars, setDollars] = useState(0);
+    const [display, setDisplay] = useState("0.00");
 
-    const [cents, setCents] = useState(0.00);
+    const [actual, setActual] = useState(0.00);
 
     const [selectedCategory, setSelectedCategory] = useState(1);
 
@@ -28,13 +27,36 @@ export default function AddBudgetItem(props) {
 
     const [date, setDate] = useState(today);
 
-    
+    const handleMoney = (e) => {
+        let value = e.target.value;
+
+        // check if value is blank or NaN
+        if(isNaN(value) || value === "") {
+
+            value = "0.00";
+        }
+        
+        // convert to {dollar}.{cents} with a maximum of 2 decimals
+        const actualValue = parseFloat(value).toFixed(2);
+        setDisplay(value);
+
+        // set amount that will be
+        setActual(actualValue);
+    }
+
+    const correctMoney = (e) => {
+        if(isNaN(display)){
+            setDisplay("0.00");
+        } else {
+            setDisplay(actual);
+        }
+        
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const centFloat = cents/100;
-        const amount = parseFloat(dollars+centFloat)
+        const amount = actual;
 
         if(props.income) {
             transactions.addTransaction(amount, selectedCategory, note, date);
@@ -59,8 +81,8 @@ export default function AddBudgetItem(props) {
     }
 
     const resetForm = () => {
-        setDollars(0);
-        setCents(0);
+        setDisplay("0.00");
+        setActual(0.00)
         setNote('');
     }
 
@@ -71,7 +93,7 @@ export default function AddBudgetItem(props) {
                 <div>
                     <label htmlFor="transactionDollarAmount">Enter dollar amount of transaction:</label>
                     <div>
-                        <span>{ props.income ? "" : "-" }$<MoneyInput setDollars={ setDollars } setCents={ setCents } /></span>
+                        <span>{ props.income ? "" : "-" }$<input type="number" step={0.01} value={ display } onChange={ handleMoney } onBlur={ correctMoney } /></span>
                     </div>
                     
                 </div>
@@ -79,8 +101,6 @@ export default function AddBudgetItem(props) {
                 <div>
                     <CategoryPicker categories={categories} selectedCategory={selectedCategory} handleCategory={handleCategory}/>
                 </div>
-                
-                
 
                 <div>
                     <label htmlFor="transactionNote">Set a note for the transaction:</label>
@@ -99,11 +119,8 @@ export default function AddBudgetItem(props) {
                 </div>
                 
                 <div className="form-button-container ui-icon-toolbar">
-
-                        <button type="reset" className="ui-icon"><ClearIcon /></button>
-                        <button type="submit" className="ui-icon"><AddIcon /></button>
-
-                    
+                    <button type="reset" className="ui-icon"><ClearIcon /></button>
+                    <button type="submit" className="ui-icon"><AddIcon /></button>
                 </div>
                 
             </form>
