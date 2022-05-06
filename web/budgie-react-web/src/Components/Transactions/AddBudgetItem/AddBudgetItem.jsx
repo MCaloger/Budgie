@@ -17,9 +17,9 @@ export default function AddBudgetItem(props) {
 
     const formRef = useRef(null)
 
-    const [display, setDisplay] = useState("0.00");
+    const [display, setDisplay] = useState();
 
-    const [actual, setActual] = useState(0.00);
+    const [actual, setActual] = useState();
 
     const [selectedCategory, setSelectedCategory] = useState(1);
 
@@ -33,7 +33,7 @@ export default function AddBudgetItem(props) {
         // check if value is blank or NaN
         if(isNaN(value) || value === "") {
 
-            value = "0.00";
+            value = "";
         }
         
         // convert to {dollar}.{cents} with a maximum of 2 decimals
@@ -46,7 +46,7 @@ export default function AddBudgetItem(props) {
 
     const correctMoney = (e) => {
         if(isNaN(display)){
-            setDisplay("0.00");
+            setDisplay("");
         } else {
             setDisplay(actual);
         }
@@ -81,8 +81,8 @@ export default function AddBudgetItem(props) {
     }
 
     const resetForm = () => {
-        setDisplay("0.00");
-        setActual(0.00)
+        setDisplay("");
+        setActual()
         setNote('');
     }
 
@@ -93,7 +93,7 @@ export default function AddBudgetItem(props) {
                 <div>
                     <label htmlFor="transactionDollarAmount">Enter dollar amount of transaction:</label>
                     <div>
-                        <span>{ props.income ? "" : "-" }$<input type="number" step={0.01} value={ display } onChange={ handleMoney } onBlur={ correctMoney } /></span>
+                        <span>{ props.income ? "" : "-" }$<input type="number" step={0.01} value={ display } onChange={ handleMoney } onBlur = { correctMoney } placeholder="0.00" min="0"/></span>
                     </div>
                     
                 </div>
