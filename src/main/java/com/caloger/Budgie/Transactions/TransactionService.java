@@ -1,5 +1,7 @@
 package com.caloger.Budgie.Transactions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
@@ -8,29 +10,37 @@ import java.util.Optional;
 
 @Service
 public class TransactionService {
-
+    Logger logger = LoggerFactory.getLogger("TransactionService");
     private TransactionRepository transactionRepository;
 
     public TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
 
-    public void saveTransaction(Transaction transaction) {
-        transactionRepository.save(transaction);
+    public Transaction saveTransaction(Transaction transaction) {
+        if(transaction.getAmount().compareTo(BigDecimal.ZERO) >= 0) {
+            return saveIncome(transaction);
+        } else {
+            return saveExpense(transaction);
+        }
     }
 
-    public void saveExpense(Transaction transaction) {
-
+    public Transaction saveExpense(Transaction transaction) {
         // confirm that amount is negative, if not, negate
         if(transaction.getAmount().compareTo(BigDecimal.ZERO) > 0) {
             transaction.setAmount(transaction.getAmount().negate());
         }
-
-        transactionRepository.save(transaction);
+        Transaction transactionSaved = transactionRepository.save(transaction);
+        return transactionSaved;
     }
 
     public Transaction saveIncome(Transaction transaction) {
-        return transactionRepository.save(transaction);
+        try {
+            transaction = transactionRepository.save(transaction);
+        } catch(Exception exception) {
+            exception.printStackTrace();
+        }
+        return transaction;
     }
 
     public List<Transaction> getAllTransactions() {

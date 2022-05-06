@@ -67,4 +67,14 @@ public class Category {
 
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", categoryName='" + categoryName + '\'' +
+                ", isIncome=" + isIncome +
+                ", transactions=" + transactions +
+                '}';
+    }
 }
