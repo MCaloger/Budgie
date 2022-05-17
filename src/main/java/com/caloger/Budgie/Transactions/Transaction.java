@@ -25,6 +25,8 @@ public class Transaction {
 
     private LocalDate transactionDate;
 
+
+
     @Autowired
     @Transient
     private CategoryService categoryService;

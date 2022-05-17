@@ -16,6 +16,13 @@ body {
   
 }
 
+.pagination-ui {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
 .navbar {
   height: auto;
   /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
@@ -47,6 +54,8 @@ body {
   .content {
     width: 75%;
   }
+
+ 
 }
 
 .nav-ul {
@@ -77,7 +86,7 @@ body {
 }
 
 .nav-li:hover {
-  filter: grayscale(25%);
+  opacity: 50%
 }
 
 .link {
@@ -90,6 +99,9 @@ body {
 }
 
 a:visited {color:black}
+
+
+
 
 .link:hover {
   
@@ -111,7 +123,14 @@ a:visited {color:black}
 }
 
 .transaction-item {
+  padding-top: 10px;
+  padding-bottom: 10px;
   display: flex;
+  align-items: center;
+}
+
+.transaction-item:not(:last-child) {
+  border-bottom: 1px solid lightgrey;
 }
 
 .transaction-item > * {
@@ -137,28 +156,23 @@ a:visited {color:black}
 }
 
 .transaction-list {
-  border-radius: 10px;
-  padding-bottom: 75px;
-  flex: 4;
-
-}
-
-.transaction-list > :not(:last-child) {
-  /* border-bottom: 1px solid #ddd; */
-}
-
-.transaction-list > :first-child {
+  
+  min-height: 620px;
   
 }
 
-.transaction-list > :nth-child(even) {
-  /* background: rgb(245, 245, 245); */
+.transaction-list > :nth-child(odd) {
+  
+
 }
 
-.transaction-list > * {
+.transaction-page > * {
   margin-top: 20px;
   margin-bottom: 20px;
+
+
 }
+
 
 .transaction-list-header {
   display: flex;
@@ -267,6 +281,10 @@ a:visited {color:black}
 .category-list-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  min-height: 64px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .chart-display {
@@ -330,6 +348,7 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
   all: unset;
   width: 24px;
   height: 24px;
@@ -346,13 +365,22 @@ label {
   
 }
 
+button:disabled {
+  opacity: 25%;
+  box-shadow: none;
+
+}
+
+button:disabled:hover {
+  box-shadow: none;
+
+  
+}
+
 .ui-icon:active {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-path:hover {
-  stroke: red;
-}
 
 .ui-icon-toolbar {
   display: flex;
@@ -368,6 +396,10 @@ input, select {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
+.input-element {
+  height: 100%;
+}
+
 .ui-icon-toolbar > * {
   margin-left: 24px;
 }
@@ -375,7 +407,16 @@ input, select {
 .tool-tip {
   position: relative;
   display: inline-block;
+  background: white;
   
+}
+
+.footer-container {
+  display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+  padding: 20px;
 }
 
 /* Tooltip text */
@@ -429,13 +470,13 @@ input, select {
 }
 
 .notification-success {
-  background: #C8E6C9;
+  background: #E8F5E9;
   color: #4CAF50;
   border: 1px solid #4CAF50;
 }
 
 .notification-failure {
-  background: #FFCDD2;
+  background: #FFEBEE;
   color: #F44336;
   border: 1px solid #F44336;
 }

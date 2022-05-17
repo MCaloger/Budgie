@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CategoryManager } from '../../../Contexts/CategoryManager/CategoryManager'
 import { CategoryContext } from '../../../Contexts/CategoryManager/CategoryManager'
 
 export default function CategoryPicker(props) {
+
   return (
     <CategoryManager>
 

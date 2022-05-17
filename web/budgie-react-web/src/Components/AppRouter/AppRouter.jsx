@@ -15,6 +15,7 @@ import { CategoryManager } from "../../Contexts/CategoryManager/CategoryManager"
 import Home from "../../Pages/Home";
 import { NotificationManager } from "../../Contexts/NotificationManager/NotificationManager";
 import NotificationContainer from "../Notifications/NotificationContainer";
+import Footer from "../Footer/Footer";
 
 export default function AppRouter() {
   return (
@@ -44,7 +45,7 @@ export default function AppRouter() {
             <div>404</div>
           </Route>
         </Switch>
-      
+      <Footer />
     </Router>
     </div>
   );

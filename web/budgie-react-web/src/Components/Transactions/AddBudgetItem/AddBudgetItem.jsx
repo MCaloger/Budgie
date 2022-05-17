@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { CategoryContext, CategoryManager } from '../../../Contexts/CategoryManager/CategoryManager';
 import { TransactionContext } from '../../../Contexts/TransactionsManager/TransactionsManager';
-import CategorySelector from '../../Categories/CategorySelector/CategorySelector';
+
 import {ReactComponent as ClearIcon} from '../../../img/clearicon.svg'
 import {ReactComponent as AddIcon} from '../../../img/addicon.svg'
 import CategoryPicker from './CategoryPicker';
@@ -38,7 +38,7 @@ export default function AddBudgetItem(props) {
         }
         
         // convert to {dollar}.{cents} with a maximum of 2 decimals
-        const actualValue = parseFloat(value).toFixed(2);
+        const actualValue = parseFloat(Math.abs(value)).toFixed(2);
         setDisplay(value);
 
         // set amount that will be
@@ -47,7 +47,7 @@ export default function AddBudgetItem(props) {
 
     const correctMoney = (e) => {
         if(isNaN(display)){
-            setDisplay("");
+            setDisplay("0.00");
         } else {
             setDisplay(actual);
         }
@@ -82,7 +82,7 @@ export default function AddBudgetItem(props) {
     }
 
     const resetForm = () => {
-        setDisplay("");
+        setDisplay("0.00");
         setActual()
         setNote('');
     }
@@ -93,9 +93,9 @@ export default function AddBudgetItem(props) {
             <form className="add-transaction-form" onSubmit={handleSubmit} onReset={resetForm} ref={formRef}>
                 <div>
                     <label htmlFor="transactionDollarAmount">Enter dollar amount of transaction:</label>
-                    <div className="inputElement">
-                        <div>{ props.income ? "" : "-" }$ <input type="number" step={0.01} value={ display } onChange={ handleMoney } onBlur = { correctMoney } placeholder="0.00" min="0"/></div>
-                    </div>
+
+                    <div className="input-element">{ props.income ? "" : "-" }$ <input type="number" placeholder="Enter Amount" step={0.01} value={ display } onChange={ handleMoney } onBlur={ correctMoney } min="0"/></div>
+
                     
                 </div>
 
@@ -105,7 +105,7 @@ export default function AddBudgetItem(props) {
 
                 <div>
                     <label htmlFor="transactionNote">Set a note for the transaction:</label>
-                    <div>
+                    <div className="input-element">
                         <input name="transactionNote" type="text" placeholder="Note" value={note} onChange={handleNote}/>
                     </div>
                     
@@ -113,7 +113,7 @@ export default function AddBudgetItem(props) {
                 
                 <div>
                     <label htmlFor="transactionDate">Date of transaction:</label>
-                    <div>
+                    <div className="input-element">
                         <input name="transactionDate" type="date" placeholder="Date" value={date} onChange={handleDate} />
                     </div>
                     

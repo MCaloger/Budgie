@@ -1,5 +1,6 @@
 package com.caloger.Budgie.Transactions;
 
+import com.caloger.Budgie.Response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import java.util.Optional;
 
 @Service
 public class TransactionService {
+
+
     Logger logger = LoggerFactory.getLogger("TransactionService");
     private TransactionRepository transactionRepository;
 
@@ -17,8 +20,16 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
+    public Response validateTransaction(Transaction transaction) {
+        if(transaction.getAmount().equals(BigDecimal.ZERO)) {
+            return new Response(false, "Amount must not be $0.00");
+        } else {
+            return new Response(true, "");
+        }
+    }
+
     public Transaction saveTransaction(Transaction transaction) {
-        if(transaction.getAmount().compareTo(BigDecimal.ZERO) >= 0) {
+        if(transaction.getAmount().compareTo(BigDecimal.ZERO) > 0) {
             return saveIncome(transaction);
         } else {
             return saveExpense(transaction);

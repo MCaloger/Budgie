@@ -40,6 +40,7 @@ public class BudgieApplication {
 			Category entertainment = new Category("Entertainment");
 			Category food = new Category("Food");
 			Category rent = new Category("Rent");
+			Category rent3 = new Category("Rent");
 
 			Category salary = new Category("Salary");
 

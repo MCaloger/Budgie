@@ -28,7 +28,8 @@ public class CategoryService {
         }
 
         if(this.getCategoryByCategoryName(category.getCategoryName()) != null) {
-            return new Response(false, "Category already exists");
+            return new Response(false, String.format("Category \"%s\" already exists",
+                    category.getCategoryName()));
         }
 
         return new Response(true, "");
@@ -41,7 +42,7 @@ public class CategoryService {
             logger.info("Saved from {} to {}", category.toString(), savedCategory.toString());
             return savedCategory;
         } catch(Exception exception) {
-            exception.printStackTrace();
+            logger.error(exception.toString());
             throw new Exception();
         }
 

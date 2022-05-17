@@ -14,6 +14,7 @@ import ChartsJSLineChart from '../../Charts/ChartsJSLineChart';
 
 import {ReactComponent as ShowIcon} from '../../../img/show.svg'
 import {ReactComponent as HideIcon} from '../../../img/hide.svg'
+import PaginationBar from '../../PaginationBar/PaginationBar';
 
 export default function TransactionList(props) {
 
@@ -26,6 +27,51 @@ export default function TransactionList(props) {
     const [ascending, setAscending] = useState(true)
 
     const [showAddForm, setShowAddForm] = useState(true);
+
+    const [pageOffset, setPageOffset] = useState(0);
+
+    const pageSize = 10;
+
+    const pageCount = Math.ceil(transactions.transactions.length / pageSize)
+
+    const nextPage = () => {
+        if(pageOffset < pageCount - 1) {
+            setPageOffset(pageOffset + 1)
+        }
+    }
+
+    const lastPage = () => {
+        if(pageOffset < pageCount - 1) {
+            setPageOffset(pageCount - 1)
+        }
+    }
+
+    const checkIfNextPage = () => {
+        return pageOffset < pageCount - 1;
+    }
+
+    const previousPage = () => {
+        if(pageOffset > 0) {
+            setPageOffset(pageOffset - 1)
+        }
+    }
+    const firstPage = () => {
+        if(pageOffset > 0) {
+            setPageOffset(0)
+        }
+    }
+
+    const checkIfPreviousPage = () => {
+        return pageOffset > 0;
+    }
+
+    const checkIfOnFirstPage = () => {
+        return pageOffset === 0;
+    }
+
+    const checkIfOnLastPage = () => {
+        return pageOffset === pageCount - 1;
+    }
 
     if(props.filter === "expense") {
         transactions.transactions =  transactions.transactions.filter(transaction => transaction.amount < 0);
@@ -108,7 +154,7 @@ export default function TransactionList(props) {
 
 
     return (
-        <div className="transaction-list">
+        <div className="transaction-page">
             <div className="sum-line"><MoneyDisplay amount={ getTotal() }></MoneyDisplay></div>
 
         <div className="chart-block">
@@ -125,8 +171,8 @@ export default function TransactionList(props) {
                 <div className="column" onClick={changeSortToNote}>Note</div>
                 <div className="column" onClick={changeSortToDate}>Date</div>
                 <div className="form-button-container">
-                    <div class="tool-tip">
-                        <div class="tool-tip-text">{showAddForm ? "Hide" : "Show" }</div>
+                    <div className="tool-tip">
+                        <div className="tool-tip-text">{showAddForm ? "Hide" : "Show" }</div>
                             {props.showAdd ? <button className="ui-icon" onClick={toggleAddForm}>{showAddForm ? <ShowIcon /> : <HideIcon /> }</button> : ""}
                         </div>
                     </div>
@@ -134,8 +180,24 @@ export default function TransactionList(props) {
 
             {showAddForm && props.showAdd ? <AddBudgetItem income={props.filter === "income" ? true : false}/> : ""}
             
-            { sortTransactions().map(transaction => <TransactionItem key={transaction.id} id={transaction.id} dollars={transaction.amount} category={ transaction.category ? transaction.category.categoryName : ''} note={transaction.note} transactionDate={transaction.transactionDate}></TransactionItem>) }
+            <div className="transaction-list centred-list">
+                { sortTransactions().slice(pageOffset*pageSize, (pageOffset*pageSize)+pageSize).map(transaction => <TransactionItem key={transaction.id} id={transaction.id} dollars={transaction.amount} category={ transaction.category ? transaction.category.categoryName : ''} note={transaction.note} transactionDate={transaction.transactionDate}></TransactionItem>) }
+            </div>
             
+            
+            <PaginationBar 
+                checkIfNextPage={checkIfNextPage()} 
+                checkIfOnFirstPage={checkIfOnFirstPage()}
+                checkIfPreviousPage={checkIfPreviousPage()}
+                checkIfOnLastPage={checkIfOnLastPage()}
+                nextPage={nextPage}
+                previousPage={previousPage}
+                firstPage={firstPage}
+                lastPage={lastPage}
+                pageOffset={pageOffset+1}
+                pageCount={pageCount}
+
+            />
         </div>
     )
 }

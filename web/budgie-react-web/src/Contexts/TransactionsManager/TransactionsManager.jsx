@@ -63,7 +63,13 @@ export const TransactionsManager = (props) => {
                 }
             })
 
+            const data = await response.json();
+
+            await notifications.addNotification({success: data.success, message: data.message})
+
             await updateTransactions();
+
+            
         } catch(error) {
             console.error('error', error)
         }

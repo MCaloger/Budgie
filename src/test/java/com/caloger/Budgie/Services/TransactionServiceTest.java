@@ -79,7 +79,6 @@ class TransactionServiceTest {
     @Test
     void getAllTransactions() throws Exception {
         List<Transaction> transactions = transactionService.getAllTransactions();
-        System.out.println(transactions);
         Assertions.assertEquals(5, transactions.size());
     }
 
