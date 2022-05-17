@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { TransactionContext } from '../../../Contexts/TransactionsManager/TransactionsManager'
 import MoneyDisplay from '../../MoneyDisplay/MoneyDisplay'
 import {ReactComponent as TrashIcon} from '../../../img/trashicon.svg'
+import Tooltip from '../../Tooltip/Tooltip'
 
 
 export default function TransactionItem(props) {
@@ -19,7 +20,7 @@ export default function TransactionItem(props) {
             <span>{props.category ? props.category : 'Empty'}</span>
             <span>{props.note}</span>
             <span>{props.transactionDate}</span>
-            <span><button className="ui-icon" onClick={handleDelete}><TrashIcon  /></button></span>
+            <span className="form-button-container"><Tooltip text="Delete"><button className="ui-icon" onClick={handleDelete}><TrashIcon  /></button></Tooltip></span>
         </div>
     )
 }

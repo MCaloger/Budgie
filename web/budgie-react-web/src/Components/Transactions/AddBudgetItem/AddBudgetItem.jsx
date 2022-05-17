@@ -6,6 +6,7 @@ import CategorySelector from '../../Categories/CategorySelector/CategorySelector
 import {ReactComponent as ClearIcon} from '../../../img/clearicon.svg'
 import {ReactComponent as AddIcon} from '../../../img/addicon.svg'
 import CategoryPicker from './CategoryPicker';
+import Tooltip from '../../Tooltip/Tooltip';
 
 export default function AddBudgetItem(props) {
 
@@ -17,7 +18,7 @@ export default function AddBudgetItem(props) {
 
     const formRef = useRef(null)
 
-    const [display, setDisplay] = useState();
+    const [display, setDisplay] = useState('0.00');
 
     const [actual, setActual] = useState();
 
@@ -92,8 +93,8 @@ export default function AddBudgetItem(props) {
             <form className="add-transaction-form" onSubmit={handleSubmit} onReset={resetForm} ref={formRef}>
                 <div>
                     <label htmlFor="transactionDollarAmount">Enter dollar amount of transaction:</label>
-                    <div>
-                        <span>{ props.income ? "" : "-" }$<input type="number" step={0.01} value={ display } onChange={ handleMoney } onBlur = { correctMoney } placeholder="0.00" min="0"/></span>
+                    <div className="inputElement">
+                        <div>{ props.income ? "" : "-" }$ <input type="number" step={0.01} value={ display } onChange={ handleMoney } onBlur = { correctMoney } placeholder="0.00" min="0"/></div>
                     </div>
                     
                 </div>
@@ -119,8 +120,9 @@ export default function AddBudgetItem(props) {
                 </div>
                 
                 <div className="form-button-container ui-icon-toolbar">
-                    <button type="reset" className="ui-icon"><ClearIcon /></button>
-                    <button type="submit" className="ui-icon"><AddIcon /></button>
+                    <Tooltip text="Clear"><button type="reset" className="ui-icon"><ClearIcon /></button></Tooltip>
+                    
+                    <Tooltip text="Add"><button type="submit" className="ui-icon"><AddIcon /></button></Tooltip>
                 </div>
                 
             </form>

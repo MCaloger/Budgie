@@ -124,7 +124,12 @@ export default function TransactionList(props) {
                 <div className="column" onClick={changeSortToCategory}>Category</div>
                 <div className="column" onClick={changeSortToNote}>Note</div>
                 <div className="column" onClick={changeSortToDate}>Date</div>
-                <div>{props.showAdd ? <button className="ui-icon" onClick={toggleAddForm}>{showAddForm ? <ShowIcon /> : <HideIcon /> }</button> : ""}</div>
+                <div className="form-button-container">
+                    <div class="tool-tip">
+                        <div class="tool-tip-text">{showAddForm ? "Hide" : "Show" }</div>
+                            {props.showAdd ? <button className="ui-icon" onClick={toggleAddForm}>{showAddForm ? <ShowIcon /> : <HideIcon /> }</button> : ""}
+                        </div>
+                    </div>
             </div>
 
             {showAddForm && props.showAdd ? <AddBudgetItem income={props.filter === "income" ? true : false}/> : ""}

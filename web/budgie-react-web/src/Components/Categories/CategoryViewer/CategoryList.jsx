@@ -5,6 +5,7 @@ import AddCategoryItem from '../AddCategoryItem/AddCategoryItem';
 
 import {ReactComponent as ShowIcon} from '../../../img/show.svg'
 import {ReactComponent as HideIcon} from '../../../img/hide.svg'
+import Tooltip from '../../Tooltip/Tooltip';
 
 export default function CategoryList(props) {
 
@@ -44,7 +45,7 @@ export default function CategoryList(props) {
         <div className="transaction-list">
             <div className="transaction-list-header">
                 <div>Name</div>
-                <div className="show-hide-button" onClick={toggleShowAdd}>{showAdd ? <ShowIcon class="ui-icon" /> : <HideIcon class="ui-icon"/>}</div>
+                <div className="show-hide-button" onClick={toggleShowAdd}><Tooltip text={showAdd ? "Hide" : "Show"}> {showAdd ? <ShowIcon className="ui-icon" /> : <HideIcon className="ui-icon"/>}</Tooltip></div>
             </div>
 
             {showAdd ? <AddCategoryItem /> : ""}

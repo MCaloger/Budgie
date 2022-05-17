@@ -13,6 +13,8 @@ import IncomeViewer from "../Transactions/TransactionViewer/IncomeViewer";
 import CategoryViewer from "../Categories/CategoryViewer/CategoryViewer";
 import { CategoryManager } from "../../Contexts/CategoryManager/CategoryManager";
 import Home from "../../Pages/Home";
+import { NotificationManager } from "../../Contexts/NotificationManager/NotificationManager";
+import NotificationContainer from "../Notifications/NotificationContainer";
 
 export default function AppRouter() {
   return (
@@ -21,20 +23,23 @@ export default function AppRouter() {
       <NavigationBar></NavigationBar>
       
         <Switch>
-          <CategoryManager>
-          <Route exact path="/">
-            <TransactionViewer />
-          </Route>
-            <Route path="/income">
-              <IncomeViewer />
-            </Route>
-            <Route path="/expenses">
-              <ExpenseViewer />
-            </Route>
-            <Route path="/categories">
-              <CategoryViewer />
-            </Route>
-          </CategoryManager>   
+          <NotificationManager>
+            <CategoryManager>
+              <Route exact path="/">
+                <TransactionViewer />
+              </Route>
+                <Route path="/income">
+                  <IncomeViewer />
+                </Route>
+                <Route path="/expenses">
+                  <ExpenseViewer />
+                </Route>
+                <Route path="/categories">
+                  <CategoryViewer />
+                </Route>
+                <NotificationContainer />
+            </CategoryManager>   
+          </NotificationManager>
           <Route path="*">
             <div>404</div>
           </Route>

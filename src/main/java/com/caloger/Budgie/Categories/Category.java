@@ -60,21 +60,12 @@ public class Category {
         isIncome = income;
     }
 
-    public boolean validate() {
-        if(this.categoryName == null || this.categoryName == "" ) {
-            return false;
-        }
-
-        return true;
-    }
-
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
                 ", categoryName='" + categoryName + '\'' +
                 ", isIncome=" + isIncome +
-                ", transactions=" + transactions +
                 '}';
     }
 }

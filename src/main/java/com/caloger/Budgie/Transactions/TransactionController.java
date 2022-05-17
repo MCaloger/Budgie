@@ -1,10 +1,9 @@
 package com.caloger.Budgie.Transactions;
 
-import com.caloger.Budgie.Transactions.Transaction;
-import com.caloger.Budgie.Transactions.TransactionService;
+import com.caloger.Budgie.Response.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +24,14 @@ public class TransactionController {
      */
     @PostMapping(value = "/add", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
-    public ResponseEntity<String> addTransaction(@RequestBody Transaction transaction) {
+    public ResponseEntity<Response> addTransaction(@RequestBody Transaction transaction) {
         try {
             transactionService.saveTransaction(transaction);
-            return ResponseEntity.ok().body("Ok.");
+            return ResponseEntity.ok().body(new Response(true,
+                    "Successfully added transaction"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error");
+            return ResponseEntity.badRequest().body(new Response(false,
+                    "Error added transaction"));
         }
     }
 
@@ -41,23 +42,23 @@ public class TransactionController {
      */
     @PostMapping(value = "/addExpense", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
-    public ResponseEntity<String> addExpense(@RequestBody Transaction transaction) {
+    public ResponseEntity<Response> addExpense(@RequestBody Transaction transaction) {
         try {
             transactionService.saveExpense(transaction);
-            return ResponseEntity.ok().body("Ok.");
+            return ResponseEntity.ok().body(new Response(true, "Expense successfully added"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error");
+            return ResponseEntity.badRequest().body(new Response(false, "Error adding expense"));
         }
     }
 
     @PostMapping(value = "/addIncome", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
-    public ResponseEntity<String> addIncome(@RequestBody Transaction transaction) {
+    public ResponseEntity<Response> addIncome(@RequestBody Transaction transaction) {
         try {
             transactionService.saveIncome(transaction);
-            return ResponseEntity.ok().body("Ok.");
+            return ResponseEntity.ok().body(new Response(true, "Income successfully added"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error");
+            return ResponseEntity.badRequest().body(new Response(false, "Error adding income"));
         }
     }
 
@@ -68,12 +69,13 @@ public class TransactionController {
      */
     @DeleteMapping(value="/delete")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
-    public ResponseEntity<String> deleteTransaction(@Param("id") int id) {
+    public ResponseEntity<Response> deleteTransaction(@Param("id") int id) {
         try {
             transactionService.deleteTransactionById(id);
-            return ResponseEntity.ok().body("Ok.");
+            return ResponseEntity.ok().body(new Response(true, "Transaction successfully removed"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error");
+            return ResponseEntity.badRequest().body(new Response(false,
+                    "Error removing transaction"));
         }
     }
 

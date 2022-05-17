@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
 import { CategoryContext } from '../../../Contexts/CategoryManager/CategoryManager';
 import {ReactComponent as AddIcon} from '../../../img/addicon.svg'
+import Tooltip from '../../Tooltip/Tooltip';
 
 export default function AddCategoryItem(props) {
 
@@ -31,10 +32,13 @@ export default function AddCategoryItem(props) {
                     </div>
                     
                 </div>
-            
-                <div className='show-hide-button'>
-                    <button class="ui-icon"><AddIcon  /></button>
-                </div>
+                
+                    <div className='show-hide-button'>
+                        <Tooltip text="Add">
+                            <button className="ui-icon"><AddIcon  /></button>
+                        </Tooltip>
+                    </div>
+                
             </form>
     )
 }

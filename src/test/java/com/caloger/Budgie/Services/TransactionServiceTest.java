@@ -8,6 +8,7 @@ import com.caloger.Budgie.Transactions.TransactionRepository;
 import com.caloger.Budgie.Transactions.TransactionService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -44,62 +45,52 @@ class TransactionServiceTest {
         this.categoryRepository = categoryRepository;
     }
 
-    @Test
-    void saveIncome() throws Exception {
+    @BeforeEach
+    public void transactionTestSetup() {
+        transactionService.saveIncome(new Transaction(new BigDecimal(10.00),
+                null,"test",
+                LocalDate.now()));
+        transactionService.saveIncome(new Transaction(new BigDecimal(11.00),
+                null,"test",
+                LocalDate.now()));
+        transactionService.saveIncome(new Transaction(new BigDecimal(12.00),
+                null,"test",
+                LocalDate.now()));
 
-        final String TESTNAME = "Test";
+        transactionService.saveExpense(new Transaction(new BigDecimal(10.00),
+                null,"test",
+                LocalDate.now()));
+        transactionService.saveExpense(new Transaction(new BigDecimal(11.00),
+                null,"test",
+                LocalDate.now()));
 
-        final Category NEWCATEGORY = new Category(TESTNAME);
-
-        categoryService.saveCategory(NEWCATEGORY);
-
-        final BigDecimal AMOUNT = new BigDecimal(10.00);
-
-        Transaction newTransaction = transactionService.saveIncome(new Transaction(AMOUNT, NEWCATEGORY,"test", LocalDate.now()));
-        Assertions.assertEquals(newTransaction.getAmount().intValue(), AMOUNT.intValue());
     }
 
     @Test
-    void getAllTransactions() {
+    void saveIncome() throws Exception {
+
+        BigDecimal amount = new BigDecimal(10.00);
+        Transaction newTransaction = transactionService.saveIncome(new Transaction(new BigDecimal(10.00),
+                null,"test",
+                LocalDate.now()));
+        Assertions.assertEquals(newTransaction.getAmount().intValue(), amount.intValue());
+    }
+
+    @Test
+    void getAllTransactions() throws Exception {
+        List<Transaction> transactions = transactionService.getAllTransactions();
+        System.out.println(transactions);
+        Assertions.assertEquals(5, transactions.size());
     }
 
     @Test
     void getAllIncomeTransactions() {
-    }
-
-    @Test
-    void getTransactionById() {
-    }
-
-    @Test
-    void deleteTransactionById() {
+        Assertions.assertEquals(3, transactionService.getAllIncomeTransactions().size());
     }
 
     @Test
     void getAllExpenseTransactions() throws Exception {
 
-        final String TESTNAME = "Test";
-
-        final Category NEWCATEGORY = new Category(TESTNAME);
-
-        Category testCategory;
-
-        categoryService.saveCategory(NEWCATEGORY);
-        testCategory = categoryService.getCategoryByCategoryName(TESTNAME);
-
-        final BigDecimal POSITIVEAMOUNT = new BigDecimal(10.00);
-        final BigDecimal NEGATIVEAMOUNT = new BigDecimal(-10.00);
-
-
-        List<Transaction> expenseTransactions = new ArrayList<>();
-        expenseTransactions.add(new Transaction(POSITIVEAMOUNT, testCategory, ""));
-        expenseTransactions.add(new Transaction(NEGATIVEAMOUNT, testCategory, ""));
-        expenseTransactions.add(new Transaction(NEGATIVEAMOUNT, testCategory, ""));
-
-        expenseTransactions.forEach(expense -> {
-            transactionService.saveExpense(expense);
-        });
-
-        Assertions.assertNotEquals(transactionService.getAllExpenseTransactions().size(), 0);
+        Assertions.assertEquals(transactionService.getAllExpenseTransactions().size(), 2);
     }
 }

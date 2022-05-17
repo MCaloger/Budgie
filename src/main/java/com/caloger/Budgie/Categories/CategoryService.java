@@ -1,5 +1,6 @@
 package com.caloger.Budgie.Categories;
 
+import com.caloger.Budgie.Response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,21 @@ public class CategoryService {
     @Autowired
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
+    }
+
+    public Response validateCategory(Category category) {
+        // check if category name is empty or null
+
+        if(category.getCategoryName() == null || category.getCategoryName().equals("")) {
+            return new Response(false, "Category name is empty");
+        }
+
+        if(this.getCategoryByCategoryName(category.getCategoryName()) != null) {
+            return new Response(false, "Category already exists");
+        }
+
+        return new Response(true, "");
+
     }
 
     public Category saveCategory(Category category) throws Exception {

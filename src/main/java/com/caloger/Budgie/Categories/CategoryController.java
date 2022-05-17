@@ -1,5 +1,6 @@
 package com.caloger.Budgie.Categories;
 
+import com.caloger.Budgie.Response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,29 +25,30 @@ public class CategoryController {
 
     @PostMapping(value = "/add", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
-    public ResponseEntity<String> addCategory(@RequestBody Category category) {
+    public ResponseEntity<Response> addCategory(@RequestBody Category category) {
         try {
-            if(category.validate()) {
+            Response validateCategory = categoryService.validateCategory(category);
+            if(validateCategory.isSuccess()) {
                 categoryService.saveCategory(category);
                 logger.info("Category added {}", category.toString());
-                return ResponseEntity.ok().body("Category created.");
+                return ResponseEntity.ok().body(new Response(true, "Category successfully created"));
             } else {
-                return ResponseEntity.badRequest().body("Error");
+                logger.info("Category added {}", category.toString());
+                return ResponseEntity.badRequest().body(validateCategory);
             }
-
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error");
+            return ResponseEntity.internalServerError().body(new Response(false, "Error adding category"));
         }
     }
 
     @DeleteMapping(value = "/delete", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
-    public ResponseEntity<String> deleteCategory(@Param("id") long id) {
+    public ResponseEntity<Response> deleteCategory(@Param("id") long id) {
         try {
             categoryService.deleteCategory(id);
-            return ResponseEntity.ok().body("Category created.");
+            return ResponseEntity.ok().body(new Response(true, "Successfully deleted category"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error");
+            return ResponseEntity.badRequest().body(new Response(false, "Error deleting category"));
         }
     }
 

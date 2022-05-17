@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext, createContext } from 'react'
 import { API_ROUTE } from '../../app-settings';
 import { CategoryContext } from '../CategoryManager/CategoryManager';
+import { NotificationContext } from '../NotificationManager/NotificationManager';
 
 export const TransactionContext = React.createContext();
 
-export function TransactionsManager(props) {
+export const TransactionsManager = (props) => {
 
     const categories = useContext(CategoryContext);
+    const notifications = useContext(NotificationContext);
 
     let [transactions, setTransactions] = useState([]);
 
@@ -40,6 +42,10 @@ export function TransactionsManager(props) {
                 },
                 body
             })
+
+            const data = await response.json();
+
+            await notifications.addNotification({success: data.success, message: data.message})
         } catch(error) {
             console.error('error', error)
         }

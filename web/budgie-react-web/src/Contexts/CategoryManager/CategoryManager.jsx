@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { API_ROUTE } from "../../app-settings";
+import { NotificationContext } from "../NotificationManager/NotificationManager";
 
 export const CategoryContext = React.createContext();
 
-export function CategoryManager(props) {
+export const CategoryManager = (props) => {
+
+    const notifications = useContext(NotificationContext);
     
     let [categories, setCategories] = useState([]);
 
@@ -42,6 +45,10 @@ export function CategoryManager(props) {
             },
                 body
             })
+
+            const data = await response.json();
+
+            await notifications.addNotification({success: data.success, message: data.message})
             
             await updateCategories()
         } catch (error) {
@@ -77,6 +84,10 @@ export function CategoryManager(props) {
                     'Content-Type': 'application/json',
                 }
             })
+
+            const data = await response.json();
+
+            await notifications.addNotification({success: data.success, message: data.message})
 
             updateCategories();
         } catch (error) {

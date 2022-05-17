@@ -6,13 +6,14 @@ body {
   font-family: 'Montserrat', sans-serif;
   /* background-color: #212121; */
   background-color: #fff;
-  color: black;
+  color: black;overflow-y: scroll;
   /* color: white; */ 
 }
 
 .App {
   display: flex;
   flex-direction: column;
+  
 }
 
 .navbar {
@@ -130,7 +131,7 @@ a:visited {color:black}
 
 .show-hide-button {
   width: 25px;
-  height: 25px;
+
   display: flex;
   justify-content: flex-end;
 }
@@ -139,7 +140,7 @@ a:visited {color:black}
   border-radius: 10px;
   padding-bottom: 75px;
   flex: 4;
-  max-height: 100vh;
+
 }
 
 .transaction-list > :not(:last-child) {
@@ -147,7 +148,7 @@ a:visited {color:black}
 }
 
 .transaction-list > :first-child {
-  border-bottom: none;
+  
 }
 
 .transaction-list > :nth-child(even) {
@@ -161,6 +162,10 @@ a:visited {color:black}
 
 .transaction-list-header {
   display: flex;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  /* border-bottom: 1px solid black; */
 }
 
 .transaction-list-header > * {
@@ -231,11 +236,12 @@ a:visited {color:black}
 .content-pane {
   display:flex;
   flex-direction: row;
-  overflow-y: auto;
+
 }
 
 .form-button-container {
   display: flex;
+  justify-content: flex-end;
 }
 
 .form-button {
@@ -321,10 +327,27 @@ label {
 }
 
 .ui-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   all: unset;
   width: 24px;
   height: 24px;
-  padding: 2px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.ui-icon:hover {
+
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  
+}
+
+.ui-icon:active {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 path:hover {
@@ -337,12 +360,82 @@ path:hover {
   
 }
 
-.ui-icon-toolbar > * {
-  margin-left: 4px;
-  margin-right: 4px;
+input, select {
+  border-radius: 2px;
+  padding: 10px;
+  height: 100%;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
+
+.ui-icon-toolbar > * {
+  margin-left: 24px;
+}
+
+.tool-tip {
+  position: relative;
+  display: inline-block;
+  
+}
+
+/* Tooltip text */
+.tool-tip .tool-tip-text {
+  visibility: hidden;
+  font-weight: normal;
+  width: 120px;
+  background: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 5px;
+  border-radius: 5px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+
+  font-size: 14px;
+
+  width: 100px;
+  top: 100%;
+  left: 50%;
+  margin-left: -50px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tool-tip:hover .tool-tip-text {
+  visibility: visible;
+}
+
 
 .column {
   user-select: none;
   cursor: n-resize;
+}
+
+.notification-container {
+  display: inline-block;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+}
+
+.notification {
+  border-radius: 2px;
+  padding: 10px;
+  margin-top: 10px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.notification-success {
+  background: #C8E6C9;
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+}
+
+.notification-failure {
+  background: #FFCDD2;
+  color: #F44336;
+  border: 1px solid #F44336;
 }
