@@ -16,12 +16,15 @@ import {ReactComponent as ShowIcon} from '../../../img/show.svg'
 import {ReactComponent as HideIcon} from '../../../img/hide.svg'
 import PaginationBar from '../../PaginationBar/PaginationBar';
 
+import { ReactComponent as UpSortArrow } from '../../../img/uparrow.svg';
+import { ReactComponent as DownSortArrow } from '../../../img/downarrow.svg';
+
 export default function TransactionList(props) {
 
     const transactions = useContext(TransactionContext)
 
     // amount | category | note | transactionDate
-    const [sort, setSort] = useState("amount")
+    const [sort, setSort] = useState("transactionDate")
 
     // descending | ascending
     const [ascending, setAscending] = useState(true)
@@ -31,6 +34,8 @@ export default function TransactionList(props) {
     const [pageOffset, setPageOffset] = useState(0);
 
     const pageSize = 10;
+
+    console.log(transactions.transactions)
 
     const pageCount = Math.ceil(transactions.transactions.length / pageSize)
 
@@ -157,19 +162,47 @@ export default function TransactionList(props) {
         <div className="transaction-page">
             <div className="sum-line"><MoneyDisplay amount={ getTotal() }></MoneyDisplay></div>
 
-        <div className="chart-block">
-            <div className="chart-display">
-                        <ChartsJSLineChart filter={props.filter}/>
-                        {props.filter === "income" || props.filter === "expense" ? <ChartsJSCategoryPieChart /> : ""}
-                    </div>
-        </div>
+            <div className="chart-block">
+                <div className="chart-display">
+                    <ChartsJSLineChart filter={props.filter}/>
+                    {props.filter === "income" || props.filter === "expense" ? <ChartsJSCategoryPieChart filter={props.filter} /> : ""}
+                </div>
+            </div>
             
 
             <div className="transaction-list-header">
-                <div className="column" onClick={changeSortToAmount}>Amount</div>
-                <div className="column" onClick={changeSortToCategory}>Category</div>
-                <div className="column" onClick={changeSortToNote}>Note</div>
-                <div className="column" onClick={changeSortToDate}>Date</div>
+                <div className="column" >
+                    <div className="sortable-column" onClick={changeSortToAmount}>Amount</div>
+                    
+                    <div className="sort-ui-container">
+                        { sort === "amount" ? 
+                            !ascending ? <UpSortArrow className="sort-ui-button" /> : <DownSortArrow className="sort-ui-button" /> :
+                        ''}
+                    </div>
+                </div>
+                <div className="column" ><div className="sortable-column" onClick={changeSortToCategory}>Category</div>
+                <div className="sort-ui-container">
+                        { sort === "category" ? 
+                            !ascending ? <UpSortArrow className="sort-ui-button" /> : <DownSortArrow className="sort-ui-button" /> :
+                        ''}
+                    </div>
+                </div>
+                <div className="column">
+                    <div className="sortable-column" onClick={changeSortToNote}>Note</div>
+                <div className="sort-ui-container">
+                        { sort === "note" ? 
+                            !ascending ? <UpSortArrow className="sort-ui-button" /> : <DownSortArrow className="sort-ui-button" /> :
+                        ''}
+                    </div>
+                </div>
+                <div className="column">
+                    <div className="sortable-column" onClick={changeSortToDate}>Date</div>
+                <div className="sort-ui-container">
+                        { sort === "transactionDate" ? 
+                            !ascending ? <UpSortArrow className="sort-ui-button" /> : <DownSortArrow className="sort-ui-button" /> :
+                        ''}
+                    </div>
+                </div>
                 <div className="form-button-container">
                     <div className="tool-tip">
                         <div className="tool-tip-text">{showAddForm ? "Hide" : "Show" }</div>
@@ -180,7 +213,7 @@ export default function TransactionList(props) {
 
             {showAddForm && props.showAdd ? <AddBudgetItem income={props.filter === "income" ? true : false}/> : ""}
             
-            <div className="transaction-list centred-list">
+            <div className="transaction-list">
                 { sortTransactions().slice(pageOffset*pageSize, (pageOffset*pageSize)+pageSize).map(transaction => <TransactionItem key={transaction.id} id={transaction.id} dollars={transaction.amount} category={ transaction.category ? transaction.category.categoryName : ''} note={transaction.note} transactionDate={transaction.transactionDate}></TransactionItem>) }
             </div>
             

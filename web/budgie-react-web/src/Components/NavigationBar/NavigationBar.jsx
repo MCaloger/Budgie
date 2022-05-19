@@ -13,7 +13,7 @@ export default function NavigationBar() {
                     <li className="nav-li">
                         <Link className="link neutral-number" to="/">
                             <TransactionLogo className="nav-icon" />
-                            <div>Transactions</div>
+                            Transactions
                         </Link>
                     </li>
                     <li className="nav-li">

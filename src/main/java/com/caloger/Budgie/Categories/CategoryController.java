@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/categories")
 public class CategoryController {
-
     Logger logger = LoggerFactory.getLogger("CategoryController");
     CategoryService categoryService;
     @Autowired
@@ -48,7 +47,7 @@ public class CategoryController {
             categoryService.deleteCategory(id);
             return ResponseEntity.ok().body(new Response(true, "Successfully deleted category"));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new Response(false, "Error deleting category"));
+            return ResponseEntity.badRequest().body(new Response(false,"Error deleting category"));
         }
     }
 

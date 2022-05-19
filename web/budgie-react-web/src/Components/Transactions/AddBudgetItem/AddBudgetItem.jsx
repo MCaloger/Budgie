@@ -20,7 +20,7 @@ export default function AddBudgetItem(props) {
 
     const [display, setDisplay] = useState('0.00');
 
-    const [actual, setActual] = useState();
+    const [actual, setActual] = useState(0.00);
 
     const [selectedCategory, setSelectedCategory] = useState(1);
 
@@ -52,6 +52,10 @@ export default function AddBudgetItem(props) {
             setDisplay(actual);
         }
         
+    }
+
+    const handleInputClick = (e) => {
+        e.target.select();
     }
 
     const handleSubmit = async (event) => {
@@ -94,7 +98,7 @@ export default function AddBudgetItem(props) {
                 <div>
                     <label htmlFor="transactionDollarAmount">Enter dollar amount of transaction:</label>
 
-                    <div className="input-element">{ props.income ? "" : "-" }$ <input type="number" placeholder="Enter Amount" step={0.01} value={ display } onChange={ handleMoney } onBlur={ correctMoney } min="0"/></div>
+                    <div className="input-container money-input">{ props.income ? "" : "-" }$ <input type="number" placeholder="Enter Amount" step={0.01} value={ display } onChange={ handleMoney } onBlur={ correctMoney } onClick={ handleInputClick }  min="0"/></div>
 
                     
                 </div>
@@ -105,7 +109,7 @@ export default function AddBudgetItem(props) {
 
                 <div>
                     <label htmlFor="transactionNote">Set a note for the transaction:</label>
-                    <div className="input-element">
+                    <div className="input-container">
                         <input name="transactionNote" type="text" placeholder="Note" value={note} onChange={handleNote}/>
                     </div>
                     
@@ -113,7 +117,7 @@ export default function AddBudgetItem(props) {
                 
                 <div>
                     <label htmlFor="transactionDate">Date of transaction:</label>
-                    <div className="input-element">
+                    <div className="input-container">
                         <input name="transactionDate" type="date" placeholder="Date" value={date} onChange={handleDate} />
                     </div>
                     

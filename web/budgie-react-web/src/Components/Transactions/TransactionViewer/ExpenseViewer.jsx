@@ -12,10 +12,6 @@ export default function ExpenseViewer() {
                     <div className="header-text negative-number">Expenses</div>
                     <TransactionList filter="expense" showAdd={true}/>
                 </div>
-                {/* <div className="transaction-add-container">
-                    <h1>Add Expense</h1>
-                    <AddBudgetItem income={false} />
-                </div> */}
             </TransactionsManager>           
         </div>
     )

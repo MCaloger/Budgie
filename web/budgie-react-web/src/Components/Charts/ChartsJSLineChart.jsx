@@ -7,7 +7,7 @@ import {  Chart as ChartJS,
     LineElement,
     Title,
     Tooltip,
-    Legend, } from 'chart.js';
+    Legend, Filler } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
 import { CategoryContext, CategoryManager } from '../../Contexts/CategoryManager/CategoryManager'
@@ -16,10 +16,15 @@ import { TransactionContext, TransactionsManager } from '../../Contexts/Transact
 import { ColorBank } from '../../Util/ColorBank'
 import { sortByTransactionDate } from '../../SortingFunctions/TransactionSorting';
 
+import { CurrencyFormatter } from '../../Util/CurrencyFormatter';
+
+
 export default function ChartsJSLineChart(props) {
     const transactionContext = useContext(TransactionContext)
     const categoryContext = useContext(CategoryContext)
     const [chart, setChart] = useState(null)
+
+    
 
 
     const chartRef = useRef(null);
@@ -33,7 +38,35 @@ export default function ChartsJSLineChart(props) {
         }
 
         setChart(chart)
+        
     }, [])
+
+    function createDownGradient(ctx, area, type) {
+        let colorStart = ""
+        let colorMid = ""
+        let colorEnd = ""
+
+        if(type === "income") {
+            colorStart = "#4CAF5022"
+            colorMid = "#4CAF5022"
+            colorEnd = "#00BCD422"
+        } else if (type === "expense"){
+            colorStart = "#F4433622"
+            colorMid = "#E91E6322"
+            colorEnd = "#9C27B022"
+        } else {
+            colorStart = "#8E24AA22"
+            colorMid = "#673AB722"
+            colorEnd = "#3F51B522"
+        }
+      
+        const gradient = ctx.createLinearGradient(0, area.height, area.right, area.height);
+      
+        gradient.addColorStop(0, colorStart);
+        gradient.addColorStop(1, colorEnd);
+      
+        return gradient;
+    }
 
     function createGradient(ctx, area, type) {
         let colorStart = ""
@@ -65,33 +98,53 @@ export default function ChartsJSLineChart(props) {
       }
 
     const buildChart = ({transactions, filter, chart}) => {
+
+
+
         const chartData = { 
             labels: [],
-            datasets: []
+            datasets: [],
         };
-
+        
         const incomeDataset = {
             label: "Income",
             data: [],
             borderColor: chart ? createGradient(chart.ctx, chart.chartArea, "income") :"green",
+            backgroundColor: chart ? createGradient(chart.ctx, chart.chartArea, "income") :"green",
             color: [],
-            tension: 0.3
+            tension: 0.3,
+            fill: {
+                target: "origin",
+                above: chart ? createDownGradient(chart.ctx, chart.chartArea, "income"): "green",
+
+            },
         }
 
         const expenseDataset = {
             label: "Expenses",
             data: [],
             borderColor: chart ? createGradient(chart.ctx, chart.chartArea, "expense") : "red",
+            backgroundColor: chart ? createGradient(chart.ctx, chart.chartArea, "expense") : "red",
             color: [],
-            tension: 0.3
+            tension: 0.3,
+            fill: {
+                target: "origin",
+                below: chart ? createDownGradient(chart.ctx, chart.chartArea, "expense"): "red",
+            },
         }
 
         const resultDataset = {
             label: "Result",
             data: [],
             borderColor: chart ? createGradient(chart.ctx, chart.chartArea) : "purple",
+            backgroundColor: chart ? createGradient(chart.ctx, chart.chartArea) : "purple",
             color: [],
-            tension: 0.3
+            tension: 0.3,
+            fill: {
+                target: "origin",
+                above: chart ? createDownGradient(chart.ctx, chart.chartArea): "purple",
+                below: chart ? createDownGradient(chart.ctx, chart.chartArea): "purple",
+            },
         }
 
 
@@ -153,21 +206,46 @@ export default function ChartsJSLineChart(props) {
         LineElement,
         Title,
         Tooltip,
-        Legend);
+        Legend, Filler);
 
     const options = {
         responsive: true,
-        maintainAspectRatio: false,
-            plugins: {
+        maintainAspectRatio: true,
+        plugins: {
             legend: {
                 labels: {
+                    border: "none",
                     color: "grey"
                 }
             },
+            tooltip: {
+                callbacks: {
+                    label: (context) => {
+                        return CurrencyFormatter.format(context.parsed.y);
+                    }
+                }
+            }   
         },
+        scales: {
+            y: {
+                ticks: {
+                    callback: (value, index, labels) => {
+                        return CurrencyFormatter.format(value.toFixed(2));
+                    }
+                }
+            }
+        },
+        animations: {
+            tension: {
+              easing: 'linear',
+            }
+          },
+        
       };
 
       let data = buildChart({transactions: transactionContext.transactions, filter: props.filter, chart})
+
+
     
     return (
         <div className="chart-js-container">

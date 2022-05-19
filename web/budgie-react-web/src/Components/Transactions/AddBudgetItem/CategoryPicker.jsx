@@ -8,11 +8,14 @@ export default function CategoryPicker(props) {
     <CategoryManager>
 
             <label htmlFor="transactionCategory">Set a category for the transaction:</label>
-            <select name="transactionCategory" value={props.selectedCategory} onChange={props.handleCategory}>
+            <div className="input-container">
+              <select name="transactionCategory" value={props.selectedCategory} onChange={props.handleCategory}>
             <CategoryContext.Consumer>
                 {categories => categories.categories.map(category => (<option key={category.id} value={category.id}>{category.categoryName}</option>))}
             </CategoryContext.Consumer> 
             </select>
+            </div>
+            
 
     </CategoryManager>
   )

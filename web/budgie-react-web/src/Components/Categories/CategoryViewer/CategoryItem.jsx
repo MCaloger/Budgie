@@ -13,8 +13,8 @@ export default function CategoryItem(props) {
 
     return (
         <div className="category-list-item">
-            <span>{props.categoryName}</span>
-            {props.categoryName !== "None" ? <span><Tooltip text="Delete"><button className="ui-icon" onClick={handleDelete}><TrashIcon  /></button></Tooltip></span> : null}
+            <div>{props.categoryName}</div>
+            {props.categoryName !== "None" ? <div><Tooltip text="Delete"><button className="ui-icon" onClick={handleDelete}><TrashIcon  /></button></Tooltip></div> : null}
         </div>
     )
 }

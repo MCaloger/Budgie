@@ -16,11 +16,11 @@ export default function TransactionItem(props) {
 
     return (
         <div className="transaction-item">
-            <span><MoneyDisplay amount={props.dollars}></MoneyDisplay></span>
-            <span>{props.category ? props.category : 'Empty'}</span>
-            <span>{props.note}</span>
-            <span>{props.transactionDate}</span>
-            <span className="form-button-container"><Tooltip text="Delete"><button className="ui-icon" onClick={handleDelete}><TrashIcon  /></button></Tooltip></span>
+            <div className='limited-text'><MoneyDisplay amount={props.dollars}></MoneyDisplay></div>
+            <div className='limited-text'>{props.category ? props.category : 'Empty'}</div>
+            <div className='limited-text'>{props.note}</div>
+            <div className='limited-text'>{props.transactionDate}</div>
+            <div className="form-button-container"><Tooltip text="Delete"><button className="ui-icon" onClick={handleDelete}><TrashIcon  /></button></Tooltip></div>
         </div>
     )
 }

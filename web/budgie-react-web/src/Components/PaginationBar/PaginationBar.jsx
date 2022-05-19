@@ -8,7 +8,7 @@ import Tooltip from '../Tooltip/Tooltip'
 
 export default function PaginationBar(props) {
   return (
-    <div className='ui-icon-toolbar pagination-ui'>
+    <div className='pagination-ui'>
         <button className="ui-icon" disabled={!props.checkIfOnFirstPage ? '' : 1} onClick={props.firstPage}>
             <Tooltip text="First Page">
                 <FirstIcon />
@@ -21,7 +21,7 @@ export default function PaginationBar(props) {
             </Tooltip>
         </button>
         <div>
-            <span>Page {props.pageOffset} / {props.pageCount}</span>
+            <div>Page {props.pageOffset} / {props.pageCount}</div>
         </div>
         <button className="ui-icon" disabled={props.checkIfNextPage ? '' : 1} onClick={props.nextPage}>
             <Tooltip text="Next Page">

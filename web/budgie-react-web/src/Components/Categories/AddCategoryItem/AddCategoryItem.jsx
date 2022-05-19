@@ -27,7 +27,7 @@ export default function AddCategoryItem(props) {
             <form className="add-transaction-form" onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="categoryName">Enter name of category:</label>
-                    <div className="input-element">
+                    <div className="input-container">
                         <input type="text" name="categoryName" id="categoryName" placeholder="Category Name" value={name} onChange={handleNameChange}/>
                     </div>
                     

@@ -6,9 +6,11 @@ import { Doughnut } from 'react-chartjs-2';
 import { CategoryContext, CategoryManager } from '../../Contexts/CategoryManager/CategoryManager'
 import { TransactionContext } from '../../Contexts/TransactionsManager/TransactionsManager'
 
-import { ColorBank } from '../../Util/ColorBank'
+import { CurrencyFormatter } from '../../Util/CurrencyFormatter';
 
-export default function ChartsJSCategoryPieChart() {
+import { ColorBank, ColorBankExpense, ColorBankIncome } from '../../Util/ColorBank'
+
+export default function ChartsJSCategoryPieChart(props) {
     const transactionContext = useContext(TransactionContext)
     const categoryContext = useContext(CategoryContext)
 
@@ -20,7 +22,8 @@ export default function ChartsJSCategoryPieChart() {
                     label: "Categories",
                     data: [],
                     backgroundColor: [],
-                    color: []
+                    color: [],
+                    
                 }
             ] 
         };
@@ -33,10 +36,11 @@ export default function ChartsJSCategoryPieChart() {
                 }
             })
             if(runningTotal != 0) {
+                let color = pickColor(index)
                 chartData.labels.push(category.categoryName)
                 chartData.datasets[0].data.push(runningTotal)
-                chartData.datasets[0].backgroundColor.push(ColorBank[index % ColorBank.length])
-                chartData.datasets[0].color.push(ColorBank[index % ColorBank.length])
+                chartData.datasets[0].backgroundColor.push(color)
+                chartData.datasets[0].color.push(color)
             }
             
         });
@@ -44,9 +48,12 @@ export default function ChartsJSCategoryPieChart() {
         return chartData
     }
 
-    const pickColor = () => {
-        let color = ColorBank[Math.floor(Math.random()*ColorBank.length)]
-        return color
+    const pickColor = (index) => {
+        if(props.filter === "income") {
+            return ColorBankIncome[index % ColorBankIncome.length]
+        } else {
+            return ColorBankExpense[index % ColorBankExpense.length]
+        }
     }
 
     ChartJS.register(ArcElement, Tooltip, Legend);
@@ -60,6 +67,16 @@ export default function ChartsJSCategoryPieChart() {
                     color: "grey"
                 }
             },
+            tooltip: {
+                callbacks: {
+                    label: (context) => {
+                        return CurrencyFormatter.format(context.parsed);
+                    },
+                    title: (context => {
+                        return context[0].label
+                    })
+                }
+            }  
         },
       };
     
@@ -69,7 +86,7 @@ export default function ChartsJSCategoryPieChart() {
                 {categories => {
                     let data = buildChart(categories)
                     return (
-                        <div className="chart-js-container main-chart">
+                        <div className="chart-js-container">
                             <Doughnut data={data} options={options}/>
                         </div>
                     )
