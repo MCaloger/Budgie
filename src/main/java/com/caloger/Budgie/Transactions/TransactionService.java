@@ -12,7 +12,6 @@ import java.util.Optional;
 @Service
 public class TransactionService {
 
-
     Logger logger = LoggerFactory.getLogger("TransactionService");
     private TransactionRepository transactionRepository;
 
@@ -27,7 +26,6 @@ public class TransactionService {
             return new Response(true, "");
         }
     }
-
     public Transaction saveTransaction(Transaction transaction) {
         if(transaction.getAmount().compareTo(BigDecimal.ZERO) > 0) {
             return saveIncome(transaction);
@@ -41,7 +39,9 @@ public class TransactionService {
         if(transaction.getAmount().compareTo(BigDecimal.ZERO) > 0) {
             transaction.setAmount(transaction.getAmount().negate());
         }
+
         Transaction transactionSaved = transactionRepository.save(transaction);
+
         return transactionSaved;
     }
 
@@ -51,6 +51,7 @@ public class TransactionService {
         } catch(Exception exception) {
             exception.printStackTrace();
         }
+
         return transaction;
     }
 

@@ -43,9 +43,8 @@ public class CategoryService {
             return savedCategory;
         } catch(Exception exception) {
             logger.error(exception.toString());
-            throw new Exception();
+            return null;
         }
-
     }
 
     public List<Category> getAllCategories() throws Exception {
@@ -54,7 +53,7 @@ public class CategoryService {
             logger.info("List {}", categories);
             return categories;
         } catch(Exception exception) {
-            throw new Exception();
+            return null;
         }
 
     }

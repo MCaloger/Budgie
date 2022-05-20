@@ -460,6 +460,8 @@ select {
 }
 
 .sortable-column {
+  display: flex;
+  flex-direction: row;
   user-select: none;
   cursor: n-resize;
 }

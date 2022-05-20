@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext } from 'react'
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
@@ -8,11 +8,10 @@ import { TransactionContext } from '../../Contexts/TransactionsManager/Transacti
 
 import { CurrencyFormatter } from '../../Util/CurrencyFormatter';
 
-import { ColorBank, ColorBankExpense, ColorBankIncome } from '../../Util/ColorBank'
+import { ColorBankExpense, ColorBankIncome } from '../../Util/ColorBank'
 
 export default function ChartsJSCategoryPieChart(props) {
     const transactionContext = useContext(TransactionContext)
-    const categoryContext = useContext(CategoryContext)
 
     const buildChart = (categories) => {
         let chartData = { 
@@ -35,7 +34,7 @@ export default function ChartsJSCategoryPieChart(props) {
                     runningTotal += Math.abs(transaction.amount);
                 }
             })
-            if(runningTotal != 0) {
+            if(runningTotal !== 0) {
                 let color = pickColor(index)
                 chartData.labels.push(category.categoryName)
                 chartData.datasets[0].data.push(runningTotal)

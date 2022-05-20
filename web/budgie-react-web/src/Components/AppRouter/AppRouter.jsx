@@ -2,8 +2,7 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import NavigationBar from "../NavigationBar/NavigationBar";
@@ -12,7 +11,6 @@ import ExpenseViewer from "../Transactions/TransactionViewer/ExpenseViewer";
 import IncomeViewer from "../Transactions/TransactionViewer/IncomeViewer"; 
 import CategoryViewer from "../Categories/CategoryViewer/CategoryViewer";
 import { CategoryManager } from "../../Contexts/CategoryManager/CategoryManager";
-import Home from "../../Pages/Home";
 import { NotificationManager } from "../../Contexts/NotificationManager/NotificationManager";
 import NotificationContainer from "../Notifications/NotificationContainer";
 import Footer from "../Footer/Footer";

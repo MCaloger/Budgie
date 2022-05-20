@@ -1,4 +1,4 @@
-package com.caloger.Budgie;
+package com.caloger.Budgie.ScheduledService;
 
 import com.caloger.Budgie.Categories.Category;
 import com.caloger.Budgie.Categories.CategoryService;
@@ -22,16 +22,14 @@ public class ScheduledService {
 
     TransactionService transactionService;
 
-
-
     public ScheduledService(CategoryService categoryService, TransactionService transactionService) {
         this.categoryService = categoryService;
         this.transactionService = transactionService;
     }
 
     // scheduled every 6 hours
-    @Scheduled(cron="0 */6 * * *")
-    public void CreateExampleTransaction() throws Exception {
+    @Scheduled(cron="0 0 */6 * * *")
+    public Transaction CreateExampleTransaction() throws Exception {
 
         // get random category
         List<Category> categories = categoryService.getAllCategories();
@@ -46,32 +44,33 @@ public class ScheduledService {
         BigDecimal randomBigDecimalFromDouble = new BigDecimal(Math.random());
         BigDecimal randomDecimal = randomBigDecimalFromDouble.multiply(maximum);
         randomDecimal = randomDecimal.setScale(2, RoundingMode.DOWN);
+
         if(plusOrMinus == 1) {
-            randomDecimal.negate();
+            randomDecimal = randomDecimal.negate();
         }
 
         // generate when this expense will occur
         LocalDate localDate = LocalDate.now();
         int timeSelector = random.nextInt(5);
-        int jumpSelector = random.nextInt(3);
+        int jumpSelector = random.nextInt(5);
 
-        // if 1-4, add/remove time, else, stay where it is
+        // if 0-3, add/remove time, else, stay where it is
         switch (timeSelector) {
             case 0:
-                localDate.plusDays(jumpSelector);
+                localDate = localDate.plusDays(jumpSelector);
                 break;
             case 1:
-                localDate.plusWeeks(jumpSelector);
+                localDate = localDate.plusWeeks(jumpSelector);
                 break;
             case 2:
-                localDate.minusWeeks(jumpSelector);
+                localDate = localDate.minusWeeks(jumpSelector);
                 break;
             case 3:
-                localDate.minusDays(jumpSelector);
+                localDate = localDate.minusDays(jumpSelector);
                 break;
         }
 
-        transactionService.saveIncome(new Transaction(randomDecimal, randomCategory, "Generated example",
+        return transactionService.saveIncome(new Transaction(randomDecimal, randomCategory, "Generated example",
                 localDate));
     }
 }

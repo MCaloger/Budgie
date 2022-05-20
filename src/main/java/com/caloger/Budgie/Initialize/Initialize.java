@@ -2,19 +2,18 @@ package com.caloger.Budgie.Initialize;
 
 import com.caloger.Budgie.Categories.Category;
 import com.caloger.Budgie.Categories.CategoryService;
-import com.caloger.Budgie.ScheduledService;
+import com.caloger.Budgie.ScheduledService.ScheduledService;
 import com.caloger.Budgie.Transactions.Transaction;
 import com.caloger.Budgie.Transactions.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 
+@Service
 public class Initialize {
 
     @Value("${exampledata}")
@@ -35,11 +34,12 @@ public class Initialize {
     }
 
     @PostConstruct
-    void init() throws Exception {
+    void init() {
+
         try {
+
             // if enabled, run example data
             if (this.isExampleDataEnabled) {
-                LocalDate localDate = LocalDate.now();
 
                 Category none = new Category("None");
                 Category entertainment = new Category("Entertainment");
@@ -56,36 +56,19 @@ public class Initialize {
                 categoryService.saveCategory(rent);
                 categoryService.saveCategory(car);
                 categoryService.saveCategory(gas);
+                categoryService.saveCategory(heating);
                 categoryService.saveCategory(salary);
 
                 for (int iterations = 0; iterations < 20; iterations++) {
-                    scheduledService.CreateExampleTransaction();
+
+                    Transaction transaction = scheduledService.CreateExampleTransaction();
+
                 }
             }
         } catch(Exception exception) {
             logger.error(exception.toString());
         }
 
-
-//            transactionService.saveIncome(new Transaction(new BigDecimal(999.99), salary, "Paycheque",
-//                    localDate.minusWeeks(4)));
-//
-//            transactionService.saveIncome(new Transaction(new BigDecimal(564.55), none, "Refund",
-//                    localDate.minusWeeks(2)));
-//            transactionService.saveIncome(new Transaction(new BigDecimal(999.99), salary, "Paycheque",
-//                    localDate));
-//
-//            transactionService.saveExpense(new Transaction(new BigDecimal(-750.65), rent, "",
-//                    localDate.minusDays(2)));
-//
-//            transactionService.saveExpense(new Transaction(new BigDecimal(-150.32), food, "Food for week",
-//                    localDate.minusDays(4)));
-//
-//            transactionService.saveExpense(new Transaction(new BigDecimal(-35), food, "Movie Theatre Trip",
-//                    localDate.minusDays(4)));
-//
-//            transactionService.saveExpense(new Transaction(new BigDecimal(-55), food, "Board Game",
-//                    localDate.minusWeeks(4)));
 
     }
 }

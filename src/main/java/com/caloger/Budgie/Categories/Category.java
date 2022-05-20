@@ -18,8 +18,6 @@ public class Category {
     @NotBlank(message = "Category must have a name.")
     private String categoryName;
 
-    private boolean isIncome;
-
     @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Transaction> transactions;
 
@@ -28,13 +26,11 @@ public class Category {
 
     public Category(String categoryName) {
         this.categoryName = categoryName;
-        this.isIncome = true;
     }
 
     public Category(Long id, String categoryName) {
         this.id = id;
         this.categoryName = categoryName;
-        this.isIncome = true;
     }
 
     public Long getId() {
@@ -53,20 +49,4 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public boolean isIncome() {
-        return isIncome;
-    }
-
-    public void setIncome(boolean income) {
-        isIncome = income;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", categoryName='" + categoryName + '\'' +
-                ", isIncome=" + isIncome +
-                '}';
-    }
 }

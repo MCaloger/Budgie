@@ -1,16 +1,13 @@
 import React, { useContext, useState } from 'react'
 import { TransactionContext } from '../../../Contexts/TransactionsManager/TransactionsManager'
-import RechartsCategoryBarChart from '../../Charts/RechartsCategoryBarChart';
+
 import MoneyDisplay from '../../MoneyDisplay/MoneyDisplay';
 import TransactionItem from '../TransactionItem/TransactionItem'
 
-import RechartsCategoryPieChart from '../../Charts/RechartsCategoryPieChart';
+import ChartBlock from '../../Charts/ChartBlock';
 
-import ChartsJSCategoryPieChart from '../../Charts/ChartsJSCategoryPieChart';
-
-import TransactionSorting, { sortByAmount, sortingController } from '../../../SortingFunctions/TransactionSorting';
+import {sortingController } from '../../../SortingFunctions/TransactionSorting';
 import AddBudgetItem from '../AddBudgetItem/AddBudgetItem';
-import ChartsJSLineChart from '../../Charts/ChartsJSLineChart';
 
 import {ReactComponent as ShowIcon} from '../../../img/show.svg'
 import {ReactComponent as HideIcon} from '../../../img/hide.svg'
@@ -27,17 +24,29 @@ export default function TransactionList(props) {
     const [sort, setSort] = useState("transactionDate")
 
     // descending | ascending
-    const [ascending, setAscending] = useState(true)
+    const [ascending, setAscending] = useState(false)
 
     const [showAddForm, setShowAddForm] = useState(true);
 
     const [pageOffset, setPageOffset] = useState(0);
 
+
     const pageSize = 10;
 
-    console.log(transactions.transactions)
+    // calculate pages
+    let calculatePages = Math.ceil(transactions.transactions.length / pageSize)
 
-    const pageCount = Math.ceil(transactions.transactions.length / pageSize)
+    // if empty, set to at least 1
+    if (calculatePages === 0) {
+        calculatePages = 1;
+    }
+
+    const pageCount = calculatePages
+
+    // move back a page if hgihest page is removed
+    if(pageOffset+1 > pageCount) {
+        setPageOffset(pageCount-1)
+    }
 
     const nextPage = () => {
         if(pageOffset < pageCount - 1) {
@@ -141,18 +150,6 @@ export default function TransactionList(props) {
         }
     }
 
-    const color = () => {
-        if(props.filter === "income") {
-            return "#00C853"
-        }
-
-        if(props.filter === "expense") {
-            return "#D50000"
-        }
-
-        return "#D437AD"
-    }
-
     const toggleAddForm = () => {
         setShowAddForm(!showAddForm)
     }
@@ -162,56 +159,64 @@ export default function TransactionList(props) {
         <div className="transaction-page">
             <div className="sum-line"><MoneyDisplay amount={ getTotal() }></MoneyDisplay></div>
 
-            <div className="chart-block">
-                <div className="chart-display">
-                    <ChartsJSLineChart filter={props.filter}/>
-                    {props.filter === "income" || props.filter === "expense" ? <ChartsJSCategoryPieChart filter={props.filter} /> : ""}
-                </div>
-            </div>
-            
+            <ChartBlock filter={props.filter}/>
 
             <div className="transaction-list-header">
                 <div className="column" >
-                    <div className="sortable-column" onClick={changeSortToAmount}>Amount</div>
-                    
+                    <div className="sortable-column" onClick={changeSortToAmount}>
+                       <div>Amount</div>
+                        <div className="sort-ui-container">
+                            { sort === "amount" ? 
+                                provideSortingIcon(ascending) :
+                            null }
+                        </div>
+                    </div>
+                </div>
+                <div className="column">
+                    <div className="sortable-column" onClick={changeSortToCategory}>
+                    <div>Category</div>
                     <div className="sort-ui-container">
-                        { sort === "amount" ? 
-                            !ascending ? <UpSortArrow className="sort-ui-button" /> : <DownSortArrow className="sort-ui-button" /> :
-                        ''}
-                    </div>
-                </div>
-                <div className="column" ><div className="sortable-column" onClick={changeSortToCategory}>Category</div>
-                <div className="sort-ui-container">
                         { sort === "category" ? 
-                            !ascending ? <UpSortArrow className="sort-ui-button" /> : <DownSortArrow className="sort-ui-button" /> :
-                        ''}
+                            provideSortingIcon(ascending) :
+                        null}
                     </div>
                 </div>
-                <div className="column">
-                    <div className="sortable-column" onClick={changeSortToNote}>Note</div>
-                <div className="sort-ui-container">
-                        { sort === "note" ? 
-                            !ascending ? <UpSortArrow className="sort-ui-button" /> : <DownSortArrow className="sort-ui-button" /> :
-                        ''}
-                    </div>
+                
                 </div>
                 <div className="column">
-                    <div className="sortable-column" onClick={changeSortToDate}>Date</div>
-                <div className="sort-ui-container">
-                        { sort === "transactionDate" ? 
-                            !ascending ? <UpSortArrow className="sort-ui-button" /> : <DownSortArrow className="sort-ui-button" /> :
-                        ''}
+                    <div className="sortable-column" onClick={changeSortToNote}>
+                        <div>Note</div>
+                        <div className="sort-ui-container">
+                            { sort === "note" ? 
+                                provideSortingIcon(ascending) :
+                            null}
+                        </div>
+                    
                     </div>
+                
+                </div>
+                <div className="column">
+                    <div className="sortable-column" onClick={changeSortToDate}>
+                        <div>Date</div>
+                        <div className="sort-ui-container">
+                            { sort === "transactionDate" ? 
+                                provideSortingIcon(ascending) :
+                            null}
+                        </div>
+                    </div>
+                
                 </div>
                 <div className="form-button-container">
                     <div className="tool-tip">
-                        <div className="tool-tip-text">{showAddForm ? "Hide" : "Show" }</div>
-                            {props.showAdd ? <button className="ui-icon" onClick={toggleAddForm}>{showAddForm ? <ShowIcon /> : <HideIcon /> }</button> : ""}
+                        <div className="tool-tip-text">
+                            { showAddForm ? "Hide" : "Show" }
                         </div>
+                            { props.showAdd ? <button className="ui-icon" onClick={toggleAddForm}>{showAddFormIcon(showAddForm) }</button> : null }
                     </div>
+                </div>
             </div>
 
-            {showAddForm && props.showAdd ? <AddBudgetItem income={props.filter === "income" ? true : false}/> : ""}
+            {showAddForm && props.showAdd ? <AddBudgetItem income={determineFilter(props.filter)}/> : ""}
             
             <div className="transaction-list">
                 { sortTransactions().slice(pageOffset*pageSize, (pageOffset*pageSize)+pageSize).map(transaction => <TransactionItem key={transaction.id} id={transaction.id} dollars={transaction.amount} category={ transaction.category ? transaction.category.categoryName : ''} note={transaction.note} transactionDate={transaction.transactionDate}></TransactionItem>) }
@@ -234,3 +239,16 @@ export default function TransactionList(props) {
         </div>
     )
 }
+
+function determineFilter(filter) {
+    return filter === "income" ? true : false;
+}
+
+function showAddFormIcon(showAddForm) {
+    return showAddForm ? <ShowIcon /> : <HideIcon />;
+}
+
+function provideSortingIcon(ascending) {
+    return !ascending ? <UpSortArrow className="sort-ui-button" /> : <DownSortArrow className="sort-ui-button" />;
+}
+

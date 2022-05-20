@@ -31,7 +31,9 @@ public class TransactionController {
     @PostMapping(value = "/add", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Response> addTransaction(@RequestBody Transaction transaction) {
+
         try {
+
             Response validateTransaction = transactionService.validateTransaction(transaction);
             if(validateTransaction.isSuccess()) {
                 transactionService.saveTransaction(transaction);
@@ -39,10 +41,12 @@ public class TransactionController {
                 return ResponseEntity.ok().body(new Response(true,
                         String.format("Successfully added $%s transaction", transaction.getAmount().toString())));
             } else {
+
                 logger.warn(transaction.toString());
                 return ResponseEntity.badRequest().body(validateTransaction);
             }
         } catch (Exception e) {
+
             logger.error(transaction.toString());
             return ResponseEntity.internalServerError().body(new Response(false,
                     "Error adding transaction"));
@@ -57,7 +61,9 @@ public class TransactionController {
     @PostMapping(value = "/addExpense", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Response> addExpense(@RequestBody Transaction transaction) {
+
         try {
+
             Response validateTransaction = transactionService.validateTransaction(transaction);
             if(validateTransaction.isSuccess()) {
                 transactionService.saveExpense(transaction);
@@ -65,10 +71,12 @@ public class TransactionController {
                 return ResponseEntity.ok().body(new Response(true,
                         String.format("Successfully added $%s expense", transaction.getAmount().toString())));
             } else {
+
                 logger.warn(transaction.toString());
                 return ResponseEntity.badRequest().body(validateTransaction);
             }
         } catch (Exception e) {
+
             logger.error(transaction.toString());
             return ResponseEntity.internalServerError().body(new Response(false,
                     "Error adding expense"));
@@ -78,7 +86,9 @@ public class TransactionController {
     @PostMapping(value = "/addIncome", consumes = "application/json")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Response> addIncome(@RequestBody Transaction transaction) {
+
         try {
+
             Response validateTransaction = transactionService.validateTransaction(transaction);
             if(validateTransaction.isSuccess()) {
                 transactionService.saveIncome(transaction);
@@ -86,10 +96,12 @@ public class TransactionController {
                 return ResponseEntity.ok().body(new Response(true,
                         String.format("Successfully added $%s income", transaction.getAmount().toString())));
             } else {
+
                 logger.warn(transaction.toString());
                 return ResponseEntity.badRequest().body(validateTransaction);
             }
         } catch (Exception e) {
+
             logger.error(transaction.toString());
             return ResponseEntity.internalServerError().body(new Response(false,
                     "Error adding income"));
@@ -104,11 +116,14 @@ public class TransactionController {
     @DeleteMapping(value="/delete")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Response> deleteTransaction(@Param("id") int id) {
+
         try {
+
             transactionService.deleteTransactionById(id);
             logger.info(String.valueOf(id));
             return ResponseEntity.ok().body(new Response(true, "Transaction successfully removed"));
         } catch (Exception e) {
+
             logger.error(String.valueOf(id));
             return ResponseEntity.badRequest().body(new Response(false,
                     "Error removing transaction"));
@@ -123,11 +138,14 @@ public class TransactionController {
     @GetMapping("/:id")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Optional<Transaction>> getTransaction(@Param("id") long id) {
+
         try {
+
             Optional<Transaction> transaction = transactionService.getTransactionById(id);
             logger.info(String.valueOf(id));
             return ResponseEntity.ok().body(transaction);
         } catch (Exception e) {
+
             logger.error(String.valueOf(id));
             return ResponseEntity.badRequest().body(null);
         }
@@ -142,10 +160,12 @@ public class TransactionController {
     public ResponseEntity<List<Transaction>> getAllTransactions() {
 
         try {
+
             List<Transaction> transactions = transactionService.getAllTransactions();
             logger.info(transactions.toString());
             return ResponseEntity.ok().body(transactions);
         } catch (Exception e) {
+
             logger.error("getAllTransactions");
             return ResponseEntity.badRequest().body(null);
         }
@@ -158,11 +178,14 @@ public class TransactionController {
     @GetMapping("/income/all")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<List<Transaction>> getAllIncomeTransactions() {
+
         try {
+
             List<Transaction> transactions = transactionService.getAllIncomeTransactions();
             logger.info(transactions.toString());
             return ResponseEntity.ok().body(transactions);
         } catch (Exception e) {
+
             logger.error("getAllIncomeTransactions");
             return ResponseEntity.badRequest().body(null);
         }
@@ -175,11 +198,14 @@ public class TransactionController {
     @GetMapping("/expenses/all")
     @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<List<Transaction>> getAllExpenseTransactions() {
+
         try {
+
             List<Transaction> transactions = transactionService.getAllExpenseTransactions();
             logger.info(transactions.toString());
             return ResponseEntity.ok().body(transactions);
         } catch (Exception e) {
+
             logger.error("getAllExpenseTransactions");
             return ResponseEntity.badRequest().body(null);
         }
