@@ -29,3 +29,7 @@ hs_err_pid*
 *.db
 log/spring.log.2022-05-17.0.gz
 src/main/resources/application.properties
+*.p12
+*.properties
+*.properties
+*.properties

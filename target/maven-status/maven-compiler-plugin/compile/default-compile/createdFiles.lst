@@ -1,5 +1,5 @@
 com\caloger\Budgie\Categories\CategoryController.class
-com\caloger\Budgie\ScheduledService.class
+com\caloger\Budgie\Initialize\Initialize.class
 com\caloger\Budgie\Transactions\TransactionRepository.class
 com\caloger\Budgie\BudgieApplication.class
 com\caloger\Budgie\ApplicationController.class
@@ -9,3 +9,5 @@ com\caloger\Budgie\Transactions\TransactionController.class
 com\caloger\Budgie\Categories\CategoryService.class
 com\caloger\Budgie\Transactions\Transaction.class
 com\caloger\Budgie\Transactions\TransactionService.class
+com\caloger\Budgie\ScheduledService\ScheduledService.class
+com\caloger\Budgie\Response\Response.class

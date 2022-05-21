@@ -1,26 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 
 export default function Notification(props) {
-  const [visible, setVisible] = useState(true)
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
+    const timer = setTimeout(async () => {
+      setVisible(false);
+    }, props.delay);
 
-      const timer = setTimeout(async () => {
-        setVisible(false)
-      }, props.delay)
+    return () => clearTimeout(timer);
+  }, [props.delay]);
 
-      return () => clearTimeout(timer)
-    
-  }, [props.delay])
-
-
-  const showIfVisible = () => {
-    return (visible ? <div className={props.notification.success ? "notification notification-success" : "notification notification-failure"} onClick={() => setVisible(false)}>{props.notification.message}</div> : null)
+  function assignNotificationClass(success) {
+    return success
+      ? "notification notification-success"
+      : "notification notification-failure";
   }
 
-  return (
-    showIfVisible()
-  )
-     
-  
+  const showIfVisible = () => {
+    return visible ? (
+      <div
+        className={assignNotificationClass(props.notification.success)}
+        onClick={() => setVisible(false)}
+      >
+        {props.notification.message}
+      </div>
+    ) : null;
+  };
+
+  return showIfVisible();
 }

@@ -29,7 +29,6 @@ public class TransactionController {
      * @return ResponseEntity<String>
      */
     @PostMapping(value = "/add", consumes = "application/json")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Response> addTransaction(@RequestBody Transaction transaction) {
 
         try {
@@ -59,7 +58,6 @@ public class TransactionController {
      * @return
      */
     @PostMapping(value = "/addExpense", consumes = "application/json")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Response> addExpense(@RequestBody Transaction transaction) {
 
         try {
@@ -84,7 +82,6 @@ public class TransactionController {
     }
 
     @PostMapping(value = "/addIncome", consumes = "application/json")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Response> addIncome(@RequestBody Transaction transaction) {
 
         try {
@@ -114,7 +111,6 @@ public class TransactionController {
      * @return
      */
     @DeleteMapping(value="/delete")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Response> deleteTransaction(@Param("id") int id) {
 
         try {
@@ -136,7 +132,6 @@ public class TransactionController {
      * @return
      */
     @GetMapping("/:id")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Optional<Transaction>> getTransaction(@Param("id") long id) {
 
         try {
@@ -156,7 +151,6 @@ public class TransactionController {
      * @return
      */
     @GetMapping("/all")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<List<Transaction>> getAllTransactions() {
 
         try {
@@ -176,7 +170,6 @@ public class TransactionController {
      * @return
      */
     @GetMapping("/income/all")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<List<Transaction>> getAllIncomeTransactions() {
 
         try {
@@ -196,7 +189,6 @@ public class TransactionController {
      * @return
      */
     @GetMapping("/expenses/all")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<List<Transaction>> getAllExpenseTransactions() {
 
         try {

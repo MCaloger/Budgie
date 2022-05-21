@@ -23,7 +23,6 @@ public class CategoryController {
     }
 
     @PostMapping(value = "/add", consumes = "application/json")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Response> addCategory(@RequestBody Category category) {
         try {
             Response validateCategory = categoryService.validateCategory(category);
@@ -41,7 +40,6 @@ public class CategoryController {
     }
 
     @DeleteMapping(value = "/delete", consumes = "application/json")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Response> deleteCategory(@Param("id") long id) {
         try {
             categoryService.deleteCategory(id);
@@ -52,7 +50,6 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<Category> getCategory(@PathVariable("id") long id) {
         try {
             Category category = categoryService.getCategoryById(id);
@@ -64,7 +61,6 @@ public class CategoryController {
     }
 
     @GetMapping("/all")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
     public ResponseEntity<List<Category>> getAllCategories() {
         try {
             List<Category> categories = categoryService.getAllCategories();
