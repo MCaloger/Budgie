@@ -40,7 +40,7 @@ public class ScheduledService {
         int plusOrMinus = random.nextInt(2);
 
         // get random amount
-        BigDecimal maximum = new BigDecimal(1000);
+        BigDecimal maximum = new BigDecimal(250);
         BigDecimal randomBigDecimalFromDouble = new BigDecimal(Math.random());
         BigDecimal randomDecimal = randomBigDecimalFromDouble.multiply(maximum);
         randomDecimal = randomDecimal.setScale(2, RoundingMode.DOWN);

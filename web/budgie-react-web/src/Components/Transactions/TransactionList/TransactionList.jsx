@@ -35,11 +35,9 @@ export default function TransactionList(props) {
     const fetchTransactions = async () => {
       if (props.filter === "expense") {
         const transactions = await transactionContext.getExpenseTransactions();
-        console.log("EXP", transactions, transactionContext.transactions);
         setTransactions(transactions);
       } else if (props.filter === "income") {
         const transactions = await transactionContext.getIncomeTransactions();
-        console.log("INC", transactions, transactionContext.transactions);
         setTransactions(transactions);
       } else {
         const transactions = transactionContext.transactions;
@@ -107,7 +105,6 @@ export default function TransactionList(props) {
   };
 
   const getTotal = () => {
-    console.log(transactions);
     let value = 0;
     transactions.forEach((transaction) => {
       value += transaction.amount;
