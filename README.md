@@ -1,6 +1,6 @@
 # Budgie
- 
-[Demo Link](https://budgie.caloger.com)
+
+![image](https://github.com/mattcaloger/Budgie/assets/3233613/6a452126-105a-426c-8d5e-d20a4d53d353)
 
 I created Budgie to gain some experience with data visualization and play around with a gradient-heavy visual style. The front-end is a React app that uses [React Router](https://reactrouter.com/) for navigation.
 
